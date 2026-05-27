@@ -25,15 +25,13 @@ const navItems = computed(() => {
   const items = [
     { path: '/studio/assets', label: 'ASSETS', icon: '01' },
     { path: '/studio/works', label: 'WORKS', icon: '02' },
-    { path: '/publish/templates', label: 'TEMPLATES', icon: '03' }
+    { path: '/publish/templates', label: 'TEMPLATES', icon: '03' },
+    { path: '/publish/pages', label: 'PAGES', icon: '04' }
   ]
 
-  // 管理员可以看到更多选项
+  // 管理员可以看到管理后台
   if (authStore.isAdmin) {
-    items.push(
-      { path: '/publish/pages', label: 'PAGES', icon: '04' },
-      { path: '/admin', label: 'ADMIN', icon: '05' }
-    )
+    items.push({ path: '/admin', label: 'ADMIN', icon: '05' })
   }
 
   return items
