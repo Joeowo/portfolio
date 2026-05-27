@@ -211,8 +211,9 @@ const toggleMenu = (e: Event) => {
   justify-content: center;
   background: var(--color-bg-tertiary);
   font-family: var(--font-family-display);
-  font-size: var(--font-size-display-xl);
+  font-size: 32px;
   color: var(--color-text-disabled);
+  font-weight: var(--font-weight-medium);
 }
 
 /* 菜单按钮 */

@@ -244,7 +244,7 @@ const handleClose = () => {
 }
 
 .video-placeholder-icon {
-  font-size: var(--font-size-display-lg);
+  font-size: 32px;
   color: var(--color-text-disabled);
 }
 

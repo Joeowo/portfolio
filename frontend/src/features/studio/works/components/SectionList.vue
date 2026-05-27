@@ -170,9 +170,10 @@ const handleDuplicate = (section: Section) => {
 
 .empty-number {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-display-xl);
+  font-size: 48px;
   color: var(--color-text-disabled);
   line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-medium);
 }
 
 .empty-label {
