@@ -53,9 +53,11 @@ defineProps<Props>()
 
 .immersive-layout__main {
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-component-md);
+  padding: calc(var(--spacing-component-md) * 2 / 3);
+  box-sizing: border-box;
 }
 
 .immersive-layout__footer {

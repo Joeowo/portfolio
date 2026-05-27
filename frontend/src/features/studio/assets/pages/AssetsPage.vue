@@ -218,12 +218,13 @@ onMounted(() => {
 <style scoped>
 .assets-page {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
 }
 
 .assets-page__sidebar {
-  width: 200px;
+  width: 240px;
   flex-shrink: 0;
   border-right: 1px solid var(--color-border-subtle);
   background: var(--color-bg-primary);

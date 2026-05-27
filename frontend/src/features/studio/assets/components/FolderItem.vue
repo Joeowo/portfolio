@@ -93,10 +93,10 @@ const cancelEditing = () => {
 
       <!-- Actions (shown on hover) -->
       <div v-if="!editing" class="folder-item__actions">
-        <button class="folder-item__action" @click.stop="handleCreate">
+        <button class="folder-item__action" @click.stop="handleCreate" title="新建子文件夹">
           <Icon icon="ph:plus" class="folder-item__action-icon" />
         </button>
-        <button class="folder-item__action" @click.stop="startEditing">
+        <button class="folder-item__action" @click.stop="startEditing" title="重命名">
           <Icon icon="ph:pencil" class="folder-item__action-icon" />
         </button>
       </div>
@@ -128,16 +128,16 @@ const cancelEditing = () => {
 .folder-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  min-width: 0;
   height: 36px;
   padding: 0 var(--spacing-element-sm);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-primary);
   font-size: var(--font-size-body-md);
   color: var(--color-text-primary);
   transition: background var(--duration-fast) var(--ease-out-cubic);
-  position: relative;
 }
 
 .folder-item:hover {
@@ -145,7 +145,7 @@ const cancelEditing = () => {
 }
 
 .folder-item:hover .folder-item__actions {
-  opacity: 1;
+  visibility: visible;
 }
 
 .folder-item--active {
@@ -158,13 +158,13 @@ const cancelEditing = () => {
 }
 
 .folder-item__spacer {
-  width: 16px;
+  width: 12px;
   flex-shrink: 0;
 }
 
 .folder-item__expand {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   padding: 0;
   border: none;
   background: transparent;
@@ -176,23 +176,25 @@ const cancelEditing = () => {
 }
 
 .folder-item__expand-icon {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   color: var(--color-text-secondary);
 }
 
 .folder-item__icon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
 .folder-item__name {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-right: var(--spacing-element-md);
 }
 
 .folder-item__input {
@@ -221,12 +223,12 @@ const cancelEditing = () => {
 }
 
 .folder-item__actions {
-  position: absolute;
-  right: 8px;
   display: flex;
   gap: 4px;
-  opacity: 0;
-  transition: opacity var(--duration-fast) var(--ease-out-cubic);
+  margin-left: var(--spacing-element-xs);
+  flex-shrink: 0;
+  visibility: hidden;
+  transition: visibility var(--duration-fast) var(--ease-out-cubic);
 }
 
 .folder-item__action {

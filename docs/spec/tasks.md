@@ -1758,10 +1758,35 @@ npm run test
 - ✅ Phase 2B: Mock 数据 (2026-05-27)
 - ✅ Phase 3: 认证模块 (2026-05-27)
 - ✅ Phase 4: 素材库模块 (2026-05-27)
+- ✅ 素材库样式优化 (2026-05-27)
 
 **进行中**: 无
 
 **待开始**: Phase 5-10
+
+---
+
+## 素材库样式优化记录 (2026-05-27)
+
+### 修复的问题
+1. **AssetCard 名字显示不全** - 增加卡片高度至 220px，优化 footer 区域
+2. **MSW handlers 路径冲突** - 调整 assets handlers 顺序，folders 优先于 :id
+3. **"上传素材"按钮换行** - 添加 min-width 和 flex 样式
+4. **"多选模式"字体太小** - 统一按钮字体大小
+5. **文件夹导航操作按钮重叠** - 移除绝对定位，改为 hover 显示
+6. **导航项文字被挤压** - 优化元素尺寸，增加 sidebar 宽度至 240px
+7. **主内容区域宽度不足** - 修复 ImmersiveLayout flex 布局
+
+### 修改的文件
+- `frontend/src/features/studio/assets/components/AssetCard.vue`
+- `frontend/src/features/studio/assets/components/AssetFilterBar.vue`
+- `frontend/src/features/studio/assets/components/FolderItem.vue`
+- `frontend/src/features/studio/assets/components/FolderTree.vue`
+- `frontend/src/features/studio/assets/pages/AssetsPage.vue`
+- `frontend/src/shared/components/ImmersiveLayout.vue`
+- `frontend/src/shared/components/NBadge.vue`
+- `frontend/src/shared/components/NCard.vue`
+- `frontend/src/shared/components/NLabel.vue`
 
 ---
 

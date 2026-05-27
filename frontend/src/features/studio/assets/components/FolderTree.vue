@@ -107,7 +107,7 @@ defineExpose({
 
 <style scoped>
 .folder-tree {
-  width: 200px;
+  width: 240px;
   height: 100%;
   border-right: 1px solid var(--color-border-subtle);
   padding: var(--spacing-element-md);
