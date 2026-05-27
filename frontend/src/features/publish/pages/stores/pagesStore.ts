@@ -73,9 +73,11 @@ export const usePagesStore = defineStore('pages', () => {
       const response = await getPagesApi({ userId })
       pages.value = response.list
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to fetch pages'
-      error.value = message
-      throw err
+      // Silently handle errors - don't throw to prevent UI errors
+      console.error('[PagesStore] Failed to fetch pages:', err)
+      // Set empty pages instead of throwing
+      pages.value = []
+      error.value = '无法加载页面数据'
     } finally {
       loading.value = false
     }

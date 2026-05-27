@@ -42,6 +42,13 @@ class Request {
     // Response interceptor
     this.instance.interceptors.response.use(
       (response: AxiosResponse<ApiResponse>) => {
+        // Check if response.data exists
+        if (!response.data || typeof response.data !== 'object') {
+          console.error('[Request] Invalid response:', response)
+          ElMessage.error('服务器响应格式错误')
+          return Promise.reject(new Error('Invalid response'))
+        }
+
         const { code, msg, data } = response.data
 
         if (code === 200) {
@@ -49,7 +56,8 @@ class Request {
         }
 
         // Handle business errors
-        ElMessage.error(msg || '请求失败')
+        console.error('[Request] Business error:', { code, msg, data, url: response.config?.url })
+        ElMessage.warning(msg || '请求失败')
         return Promise.reject(new Error(msg || '请求失败'))
       },
       error => {

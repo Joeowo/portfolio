@@ -104,11 +104,7 @@ const emptyMessage = computed(() => {
 // Actions
 onMounted(async () => {
   if (authStore.user && authStore.user.id) {
-    try {
-      await pagesStore.fetchPages(Number(authStore.user.id))
-    } catch (error) {
-      console.error('Failed to fetch pages:', error)
-    }
+    await pagesStore.fetchPages(Number(authStore.user.id))
   }
 })
 
