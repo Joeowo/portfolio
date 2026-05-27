@@ -86,7 +86,7 @@ onUnmounted(() => {
 <style scoped>
 .n-select {
   position: relative;
-  min-width: 160px;
+  min-width: 180px;
 }
 
 .n-select__button {
@@ -114,6 +114,7 @@ onUnmounted(() => {
 }
 
 .n-select__label {
+  padding-left: var(--spacing-element-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
