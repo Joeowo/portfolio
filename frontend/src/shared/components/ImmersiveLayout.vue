@@ -26,7 +26,7 @@ defineProps<Props>()
 
 <style scoped>
 .immersive-layout {
-  min-height: 100vh;
+  min-height: calc(100vh - 56px); /* 减去导航栏高度 */
   display: flex;
   flex-direction: column;
   background-color: var(--color-bg-primary);
@@ -34,7 +34,7 @@ defineProps<Props>()
 
 .immersive-layout__header {
   position: sticky;
-  top: 0;
+  top: 56px; /* 位于全局导航下方 */
   z-index: var(--z-sticky);
   display: flex;
   align-items: center;
