@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { mockUsers, getUserByUsername } from '../data/users'
+import type { User } from '../data/users'
 
 interface LoginRequest {
   username: string
@@ -9,8 +10,7 @@ interface LoginRequest {
 interface RegisterRequest {
   username: string
   password: string
-  nickname: string
-  email: string
+  nickname?: string
 }
 
 interface RefreshTokenRequest {
@@ -18,9 +18,16 @@ interface RefreshTokenRequest {
 }
 
 interface AuthResponse {
-  accessToken: string
+  user: Omit<User, 'password'>
+  token: string
   refreshToken: string
   expiresIn: number
+}
+
+// Helper to convert User to response format
+function userToResponse(user: User): Omit<User, 'password'> {
+  const { password: _, ...userWithoutPassword } = user as any
+  return userWithoutPassword
 }
 
 // Mock token storage
@@ -29,12 +36,13 @@ let currentRefreshToken = 'mock-refresh-token-valid'
 export const authHandlers = [
   // POST /api/auth/login
   http.post('/api/auth/login', async ({ request }) => {
+    console.log('[MSW Auth] Login request received')
     await delay(500)
 
     const body = (await request.json()) as LoginRequest
     const user = getUserByUsername(body.username)
 
-    // Mock password check - any password works for demo
+    // Mock password check - any password >= 6 chars works for demo
     if (!user || body.password.length < 6) {
       return HttpResponse.json(
         { code: 401, msg: '用户名或密码错误', data: null },
@@ -43,7 +51,7 @@ export const authHandlers = [
     }
 
     // Generate mock tokens
-    const accessToken = `mock-access-token-${user.id}-${Date.now()}`
+    const token = `mock-access-token-${user.id}-${Date.now()}`
     const newRefreshToken = `mock-refresh-token-${user.id}-${Date.now()}`
     currentRefreshToken = newRefreshToken
 
@@ -51,7 +59,8 @@ export const authHandlers = [
       code: 200,
       msg: '登录成功',
       data: {
-        accessToken,
+        user: userToResponse(user),
+        token,
         refreshToken: newRefreshToken,
         expiresIn: 7200
       } as AuthResponse
@@ -73,15 +82,30 @@ export const authHandlers = [
       )
     }
 
+    // Create new user
+    const newUser: User = {
+      id: mockUsers.length + 1,
+      username: body.username,
+      nickname: body.nickname || body.username,
+      email: `${body.username}@example.com`,
+      role: 'USER',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
+
+    // Add to mock users (in-memory only)
+    mockUsers.push(newUser)
+
     // Generate mock tokens for new user
-    const accessToken = `mock-access-token-new-${Date.now()}`
+    const token = `mock-access-token-new-${Date.now()}`
     const newRefreshToken = `mock-refresh-token-new-${Date.now()}`
 
     return HttpResponse.json({
       code: 200,
       msg: '注册成功',
       data: {
-        accessToken,
+        user: userToResponse(newUser),
+        token,
         refreshToken: newRefreshToken,
         expiresIn: 7200
       } as AuthResponse
@@ -101,14 +125,16 @@ export const authHandlers = [
       )
     }
 
-    // Generate new access token
-    const newAccessToken = `mock-access-token-refreshed-${Date.now()}`
+    // Use default user for refresh
+    const user = mockUsers[0]
+    const newToken = `mock-access-token-refreshed-${Date.now()}`
 
     return HttpResponse.json({
       code: 200,
       msg: '刷新成功',
       data: {
-        accessToken: newAccessToken,
+        user: userToResponse(user),
+        token: newToken,
         refreshToken: body.refreshToken,
         expiresIn: 7200
       } as AuthResponse
@@ -135,23 +161,50 @@ export const authHandlers = [
       const userId = parseInt(match[1])
       const user = mockUsers.find(u => u.id === userId)
       if (user) {
-        // Return user without sensitive data
-        const { password, ...userWithoutPassword } = user as any
         return HttpResponse.json({
           code: 200,
           msg: 'success',
-          data: userWithoutPassword
+          data: userToResponse(user)
         })
       }
     }
 
     // Default to first user for demo
     const defaultUser = mockUsers[0]
-    const { password, ...userWithoutPassword } = defaultUser as any
     return HttpResponse.json({
       code: 200,
       msg: 'success',
-      data: userWithoutPassword
+      data: userToResponse(defaultUser)
+    })
+  }),
+
+  // POST /api/auth/logout
+  http.post('/api/auth/logout', async () => {
+    await delay(200)
+    return HttpResponse.json({
+      code: 200,
+      msg: '登出成功',
+      data: null
+    })
+  }),
+
+  // PUT /api/auth/profile
+  http.put('/api/auth/profile', async ({ request }) => {
+    await delay(400)
+
+    const body = await request.json() as { nickname?: string; avatar?: string; bio?: string }
+    const user = mockUsers[0]
+
+    // Update user
+    if (body.nickname) user.nickname = body.nickname
+    if (body.avatar) user.avatarUrl = body.avatar
+    if (body.bio) user.bio = body.bio
+    user.updatedAt = new Date().toISOString()
+
+    return HttpResponse.json({
+      code: 200,
+      msg: '更新成功',
+      data: userToResponse(user)
     })
   })
 ]

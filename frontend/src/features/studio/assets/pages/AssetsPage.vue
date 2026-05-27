@@ -268,7 +268,7 @@ onMounted(() => {
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-sm);
   background: var(--color-bg-primary);
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-primary);
   font-size: var(--font-size-body-sm);
   color: var(--color-text-primary);
   cursor: pointer;
@@ -276,6 +276,7 @@ onMounted(() => {
   align-items: center;
   gap: 6px;
   transition: all var(--duration-fast) var(--ease-out-cubic);
+  white-space: nowrap;
 }
 
 .selection-bar__button:hover {
@@ -309,7 +310,7 @@ onMounted(() => {
   border-radius: var(--radius-sm);
   background: transparent;
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-label-sm);
+  font-size: var(--font-size-body-sm);
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
@@ -318,6 +319,7 @@ onMounted(() => {
   align-items: center;
   gap: 6px;
   transition: all var(--duration-fast) var(--ease-out-cubic);
+  white-space: nowrap;
 }
 
 .assets-page__select-toggle:hover {

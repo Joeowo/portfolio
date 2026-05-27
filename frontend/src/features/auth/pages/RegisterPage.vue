@@ -5,9 +5,10 @@ import MinimalLayout from '@/shared/components/MinimalLayout.vue'
 import AuthHeader from '../components/AuthHeader.vue'
 import AuthFooter from '../components/AuthFooter.vue'
 import AuthRegisterForm from '../components/AuthRegisterForm.vue'
+import { useAuthStore } from '../stores/authStore'
 
 const router = useRouter()
-const loading = ref(false)
+const authStore = useAuthStore()
 const registerFormRef = ref<InstanceType<typeof AuthRegisterForm>>()
 
 const handleRegister = async (data: {
@@ -15,16 +16,15 @@ const handleRegister = async (data: {
   password: string
   nickname?: string
 }) => {
-  loading.value = true
+  try {
+    await authStore.register(data)
 
-  // Simulate API call
-  // TODO: Replace with actual auth API call
-  console.log('[Demo] Register:', data)
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-
-  // Demo: accept any valid input and redirect to login
-  // In real implementation, this would auto-login or show success message
-  router.push('/login')
+    // Redirect to studio after successful registration
+    router.push('/studio/assets')
+  } catch (error) {
+    // Show error on form
+    registerFormRef.value?.setFormError('Registration failed. Please try again.')
+  }
 }
 </script>
 
@@ -35,7 +35,7 @@ const handleRegister = async (data: {
 
       <AuthRegisterForm
         ref="registerFormRef"
-        :loading="loading"
+        :loading="authStore.isLoading"
         @submit="handleRegister"
       />
 

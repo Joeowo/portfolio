@@ -149,13 +149,15 @@ const closeMenu = () => {
 <style scoped>
 .asset-card {
   width: 200px;
-  height: 200px;
+  height: 220px;
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-sm);
   background: var(--color-bg-secondary);
   cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-out-cubic);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .asset-card:hover {
@@ -169,7 +171,8 @@ const closeMenu = () => {
 
 .asset-card__thumbnail {
   width: 100%;
-  height: 156px;
+  flex: 1;
+  min-height: 0;
   position: relative;
   background: var(--color-bg-tertiary);
   overflow: hidden;
@@ -291,22 +294,22 @@ const closeMenu = () => {
 }
 
 .asset-card__footer {
-  height: 44px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2px;
+  gap: 4px;
   border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-secondary);
 }
 
 .asset-card__name {
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-primary);
   font-size: var(--font-size-body-sm);
   color: var(--color-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1.4;
 }
 
 .asset-card__meta {

@@ -112,7 +112,7 @@ const typeOptions: Array<{ value: AssetType | ''; label: string; icon: string }>
       </button>
 
       <!-- Upload Button -->
-      <NButton type="primary" @click="handleUpload">
+      <NButton type="primary" class="filter-bar__upload-btn" @click="handleUpload">
         <Icon icon="ph:plus" class="filter-bar__upload-icon" />
         上传素材
       </NButton>
@@ -299,5 +299,17 @@ const typeOptions: Array<{ value: AssetType | ''; label: string; icon: string }>
 .filter-bar__upload-icon {
   width: 16px;
   height: 16px;
+  flex-shrink: 0;
+}
+
+.filter-bar__upload-btn {
+  min-width: 120px;
+}
+
+.filter-bar__upload-btn :deep(.n-button__content) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-element-sm);
+  white-space: nowrap;
 }
 </style>

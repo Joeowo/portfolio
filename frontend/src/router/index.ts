@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { useAuthStore } from '@features/auth/stores/authStore'
 
 const routes: RouteRecordRaw[] = [
   // Auth Routes
@@ -91,17 +92,43 @@ const router = createRouter({
   }
 })
 
-// Navigation Guards (TODO: implement auth check)
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('token')
+// Navigation Guards
+router.beforeEach(async (to, _from, next) => {
+  const authStore = useAuthStore()
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else if ((to.name === 'Login' || to.name === 'Register') && isAuthenticated) {
-    next('/studio/assets')
-  } else {
-    next()
+  // Restore user from localStorage if not already loaded
+  if (!authStore.user && authStore.token) {
+    try {
+      await authStore.getMe()
+    } catch {
+      // Token invalid, clear auth
+      authStore.clearAuth()
+    }
   }
+
+  const isAuthenticated = authStore.isAuthenticated
+  const isAdmin = authStore.isAdmin
+
+  // Check if route requires authentication
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'Login', query: { redirect: to.fullPath } })
+    return
+  }
+
+  // Check if route requires admin role
+  if (to.meta.requiresAdmin && !isAdmin) {
+    next('/studio/assets')
+    return
+  }
+
+  // Redirect authenticated users away from login/register pages
+  if ((to.name === 'Login' || to.name === 'Register') && isAuthenticated) {
+    const redirect = (to.query.redirect as string) || '/studio/assets'
+    next(redirect)
+    return
+  }
+
+  next()
 })
 
 export default router

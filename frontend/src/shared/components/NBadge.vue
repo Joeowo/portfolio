@@ -6,7 +6,7 @@ interface Props {
   dot?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   status: 'info',
   dot: false
 })

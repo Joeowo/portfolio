@@ -8,6 +8,104 @@ let nextAssetId = 100
 let nextFolderId = 100
 
 export const assetsHandlers = [
+  // === Folders handlers (must come before :id handlers) ===
+
+  // GET /api/assets/folders
+  http.get('/api/assets/folders', async ({ request }) => {
+    console.log('[MSW Assets] Folders request:', request.url)
+    await delay(100)
+
+    const url = new URL(request.url)
+    const userId = url.searchParams.get('userId')
+
+    let filteredFolders = [...folders]
+
+    if (userId) {
+      filteredFolders = filteredFolders.filter(f => f.userId === parseInt(userId))
+    }
+
+    return HttpResponse.json({
+      code: 200,
+      msg: 'success',
+      data: filteredFolders
+    })
+  }),
+
+  // POST /api/assets/folders
+  http.post('/api/assets/folders', async ({ request }) => {
+    await delay(200)
+
+    const body = await request.json() as any
+    const { name, userId, parentId } = body
+
+    const newFolder = {
+      id: nextFolderId++,
+      userId,
+      name,
+      parentId: parentId || null,
+      createdAt: new Date().toISOString()
+    }
+
+    folders.push(newFolder)
+
+    return HttpResponse.json({
+      code: 200,
+      msg: '创建成功',
+      data: newFolder
+    })
+  }),
+
+  // PUT /api/assets/folders/:id
+  http.put('/api/assets/folders/:id', async ({ params, request }) => {
+    await delay(200)
+
+    const index = folders.findIndex(f => f.id === parseInt(params.id as string))
+
+    if (index === -1) {
+      return HttpResponse.json(
+        { code: 404, msg: '文件夹不存在', data: null },
+        { status: 404 }
+      )
+    }
+
+    const updates = await request.json() as any
+    folders[index] = { ...folders[index], ...updates }
+
+    return HttpResponse.json({
+      code: 200,
+      msg: '更新成功',
+      data: folders[index]
+    })
+  }),
+
+  // DELETE /api/assets/folders/:id
+  http.delete('/api/assets/folders/:id', async ({ params }) => {
+    await delay(200)
+
+    const index = folders.findIndex(f => f.id === parseInt(params.id as string))
+
+    if (index === -1) {
+      return HttpResponse.json(
+        { code: 404, msg: '文件夹不存在', data: null },
+        { status: 404 }
+      )
+    }
+
+    // Also delete assets in this folder
+    const folderId = parseInt(params.id as string)
+    assets = assets.filter(a => a.folderId !== folderId)
+
+    folders.splice(index, 1)
+
+    return HttpResponse.json({
+      code: 200,
+      msg: '删除成功',
+      data: null
+    })
+  }),
+
+  // === Assets handlers ===
+
   // POST /api/assets/upload
   http.post('/api/assets/upload', async ({ request }) => {
     await delay(500)
@@ -184,99 +282,6 @@ export const assetsHandlers = [
     }
 
     assets.splice(index, 1)
-
-    return HttpResponse.json({
-      code: 200,
-      msg: '删除成功',
-      data: null
-    })
-  }),
-
-  // GET /api/assets/folders
-  http.get('/api/assets/folders', async ({ request }) => {
-    await delay(100)
-
-    const url = new URL(request.url)
-    const userId = url.searchParams.get('userId')
-
-    let filteredFolders = [...folders]
-
-    if (userId) {
-      filteredFolders = filteredFolders.filter(f => f.userId === parseInt(userId))
-    }
-
-    return HttpResponse.json({
-      code: 200,
-      msg: 'success',
-      data: filteredFolders
-    })
-  }),
-
-  // POST /api/assets/folders
-  http.post('/api/assets/folders', async ({ request }) => {
-    await delay(200)
-
-    const body = await request.json() as any
-    const { name, userId, parentId } = body
-
-    const newFolder = {
-      id: nextFolderId++,
-      userId,
-      name,
-      parentId: parentId || null,
-      createdAt: new Date().toISOString()
-    }
-
-    folders.push(newFolder)
-
-    return HttpResponse.json({
-      code: 200,
-      msg: '创建成功',
-      data: newFolder
-    })
-  }),
-
-  // PUT /api/assets/folders/:id
-  http.put('/api/assets/folders/:id', async ({ params, request }) => {
-    await delay(200)
-
-    const index = folders.findIndex(f => f.id === parseInt(params.id as string))
-
-    if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '文件夹不存在', data: null },
-        { status: 404 }
-      )
-    }
-
-    const updates = await request.json() as any
-    folders[index] = { ...folders[index], ...updates }
-
-    return HttpResponse.json({
-      code: 200,
-      msg: '更新成功',
-      data: folders[index]
-    })
-  }),
-
-  // DELETE /api/assets/folders/:id
-  http.delete('/api/assets/folders/:id', async ({ params }) => {
-    await delay(200)
-
-    const index = folders.findIndex(f => f.id === parseInt(params.id as string))
-
-    if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '文件夹不存在', data: null },
-        { status: 404 }
-      )
-    }
-
-    // Also delete assets in this folder
-    const folderId = parseInt(params.id as string)
-    assets = assets.filter(a => a.folderId !== folderId)
-
-    folders.splice(index, 1)
 
     return HttpResponse.json({
       code: 200,
