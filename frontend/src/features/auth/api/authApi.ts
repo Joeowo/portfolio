@@ -1,11 +1,5 @@
 import request from '@/shared/utils/request'
-import type {
-  AuthResponse,
-  LoginDto,
-  RegisterDto,
-  RefreshTokenDto,
-  User
-} from '../types'
+import type { AuthResponse, LoginDto, RegisterDto, RefreshTokenDto, User } from '../types'
 
 const AUTH_BASE_URL = '/auth'
 

@@ -44,10 +44,7 @@ const selectMenu = (id: string) => {
 
 <template>
   <div class="sidebar-layout">
-    <aside
-      class="sidebar-layout__sidebar"
-      :style="{ '--sidebar-width': sidebarWidth }"
-    >
+    <aside class="sidebar-layout__sidebar" :style="{ '--sidebar-width': sidebarWidth }">
       <div class="sidebar-layout__sidebar-header">
         <span v-if="!isCollapsed" class="sidebar-layout__title">
           {{ title }}

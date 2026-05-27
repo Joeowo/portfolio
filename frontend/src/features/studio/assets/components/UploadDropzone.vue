@@ -171,9 +171,7 @@ const formatFileSize = (bytes: number) => {
         <Icon icon="ph:upload-simple" class="upload-dropzone__overlay-icon" />
         <div class="upload-dropzone__overlay-text">释放文件以上传</div>
         <div class="upload-dropzone__overlay-hint">支持 JPG, PNG, MP4, TXT</div>
-        <button class="upload-dropzone__overlay-cancel" @click.stop="handleCancel">
-          取消上传
-        </button>
+        <button class="upload-dropzone__overlay-cancel" @click.stop="handleCancel">取消上传</button>
       </div>
     </template>
 
@@ -198,14 +196,16 @@ const formatFileSize = (bytes: number) => {
 
       <!-- Individual File Progress -->
       <div class="upload-progress__files">
-        <div
-          v-for="item in uploadQueue"
-          :key="item.file.name"
-          class="upload-progress__file"
-        >
+        <div v-for="item in uploadQueue" :key="item.file.name" class="upload-progress__file">
           <div class="upload-progress__file-info">
             <Icon
-              :icon="item.status === 'success' ? 'ph:check-circle' : item.status === 'error' ? 'ph:x-circle' : 'ph:spinner'"
+              :icon="
+                item.status === 'success'
+                  ? 'ph:check-circle'
+                  : item.status === 'error'
+                    ? 'ph:x-circle'
+                    : 'ph:spinner'
+              "
               class="upload-progress__file-icon"
               :class="{ 'upload-progress__file-icon--spinning': item.status === 'uploading' }"
             />
@@ -396,8 +396,12 @@ const formatFileSize = (bytes: number) => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .upload-progress__file-name {

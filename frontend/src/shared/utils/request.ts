@@ -34,7 +34,7 @@ class Request {
         }
         return config
       },
-      (error) => {
+      error => {
         return Promise.reject(error)
       }
     )
@@ -52,7 +52,7 @@ class Request {
         ElMessage.error(msg || '请求失败')
         return Promise.reject(new Error(msg || '请求失败'))
       },
-      (error) => {
+      error => {
         // Handle HTTP errors
         if (error.response) {
           const { status, data } = error.response

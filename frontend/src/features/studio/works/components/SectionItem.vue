@@ -96,9 +96,7 @@ const handleDuplicate = () => {
         <span class="drag-icon">⋮⋮</span>
         <span class="drag-label">{{ sectionTypeLabels[section.type] }}</span>
       </div>
-      <button class="section-item__delete" @click="handleDelete" title="删除区块">
-        ×
-      </button>
+      <button class="section-item__delete" title="删除区块" @click="handleDelete">×</button>
     </div>
 
     <!-- 预览区域 -->

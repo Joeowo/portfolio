@@ -28,7 +28,7 @@ const sections = ref<Section[]>([...props.work.sections])
 // 监听 work 变化
 watch(
   () => props.work,
-  (newWork) => {
+  newWork => {
     title.value = newWork.title
     description.value = newWork.description || ''
     coverUrl.value = newWork.coverUrl || ''
@@ -203,9 +203,7 @@ const selectCover = () => {
         </div>
 
         <!-- 版本历史 -->
-        <button class="editor-panel__version-link" @click="openVersionHistory">
-          [版本历史]
-        </button>
+        <button class="editor-panel__version-link" @click="openVersionHistory">[版本历史]</button>
       </div>
     </aside>
 

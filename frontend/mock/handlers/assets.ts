@@ -3,7 +3,7 @@ import { mockAssets, mockFolders } from '../data/assets'
 
 // In-memory storage for mutations
 let assets = [...mockAssets]
-let folders = [...mockFolders]
+const folders = [...mockFolders]
 let nextAssetId = 100
 let nextFolderId = 100
 
@@ -35,7 +35,7 @@ export const assetsHandlers = [
   http.post('/api/assets/folders', async ({ request }) => {
     await delay(200)
 
-    const body = await request.json() as any
+    const body = (await request.json()) as any
     const { name, userId, parentId } = body
 
     const newFolder = {
@@ -62,13 +62,10 @@ export const assetsHandlers = [
     const index = folders.findIndex(f => f.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '文件夹不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '文件夹不存在', data: null }, { status: 404 })
     }
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
     folders[index] = { ...folders[index], ...updates }
 
     return HttpResponse.json({
@@ -85,10 +82,7 @@ export const assetsHandlers = [
     const index = folders.findIndex(f => f.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '文件夹不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '文件夹不存在', data: null }, { status: 404 })
     }
 
     // Also delete assets in this folder
@@ -116,10 +110,7 @@ export const assetsHandlers = [
     const userId = parseInt(formData.get('userId') as string)
 
     if (!file) {
-      return HttpResponse.json(
-        { code: 400, msg: '未找到文件', data: null },
-        { status: 400 }
-      )
+      return HttpResponse.json({ code: 400, msg: '未找到文件', data: null }, { status: 400 })
     }
 
     // Determine asset type
@@ -158,7 +149,7 @@ export const assetsHandlers = [
   http.post('/api/assets/text', async ({ request }) => {
     await delay(300)
 
-    const body = await request.json() as any
+    const body = (await request.json()) as any
     const { content, name, folderId, userId } = body
 
     const newAsset = {
@@ -232,10 +223,7 @@ export const assetsHandlers = [
     const asset = assets.find(a => a.id === parseInt(params.id as string))
 
     if (!asset) {
-      return HttpResponse.json(
-        { code: 404, msg: '素材不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '素材不存在', data: null }, { status: 404 })
     }
 
     return HttpResponse.json({
@@ -252,13 +240,10 @@ export const assetsHandlers = [
     const index = assets.findIndex(a => a.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '素材不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '素材不存在', data: null }, { status: 404 })
     }
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
     assets[index] = { ...assets[index], ...updates, updatedAt: new Date().toISOString() }
 
     return HttpResponse.json({
@@ -275,10 +260,7 @@ export const assetsHandlers = [
     const index = assets.findIndex(a => a.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '素材不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '素材不存在', data: null }, { status: 404 })
     }
 
     assets.splice(index, 1)
@@ -297,13 +279,10 @@ export const assetsHandlers = [
     const index = assets.findIndex(a => a.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '素材不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '素材不存在', data: null }, { status: 404 })
     }
 
-    const body = await request.json() as { folderId?: number }
+    const body = (await request.json()) as { folderId?: number }
     assets[index] = {
       ...assets[index],
       folderId: body.folderId || null,

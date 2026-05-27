@@ -1209,9 +1209,9 @@ TypeScript 编译无错误
 
 ---
 
-## Phase 6: 模版选择
+## Phase 6: 模版选择 ✅ COMPLETED
 
-### Task 6.1: Template 类型定义
+### Task 6.1: Template 类型定义 ✅
 **描述**: 定义模版相关类型
 
 **验收标准**:
@@ -1226,7 +1226,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.2: Templates API 封装
+### Task 6.2: Templates API 封装 ✅
 **描述**: 创建模版 API 调用
 
 **验证方式**:
@@ -1237,7 +1237,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.3: Templates Store
+### Task 6.3: Templates Store ✅
 **描述**: 创建模版状态管理
 
 **验证方式**:
@@ -1248,7 +1248,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.4: TemplateCard 组件
+### Task 6.4: TemplateCard 组件 ✅
 **描述**: 创建模版卡片组件
 
 **验收标准**:
@@ -1265,7 +1265,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.5: TemplateGrid 组件
+### Task 6.5: TemplateGrid 组件 ✅
 **描述**: 创建模版网格组件
 
 **验收标准**:
@@ -1280,7 +1280,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.6: TemplatePreview 组件
+### Task 6.6: TemplatePreview 组件 ✅
 **描述**: 创建模版预览模态框
 
 **验收标准**:
@@ -1295,7 +1295,7 @@ TypeScript 编译无错误
 
 ---
 
-### Task 6.7: TemplatesPage
+### Task 6.7: TemplatesPage ✅
 **描述**: 创建模版选择页面
 
 **验收标准**:
@@ -1308,6 +1308,50 @@ TypeScript 编译无错误
 
 **涉及文件**:
 - `frontend/src/features/publish/templates/pages/TemplatesPage.vue`
+
+---
+
+### Phase 6 完成状态
+
+**完成时间**: 2026-05-27
+**完成度**: 100% (7/7 任务完成)
+
+| 任务 | 状态 | 说明 |
+|------|------|------|
+| 6.1 类型定义 | ✅ | Template.ts 完整实现 |
+| 6.2 API 封装 | ✅ | templatesApi.ts 所有接口已封装 |
+| 6.3 Store | ✅ | templatesStore.ts 状态管理完整 |
+| 6.4 TemplateCard | ✅ | 280x320px 卡片，悬停预览，选中状态 |
+| 6.5 TemplateGrid | ✅ | 响应式网格，空状态，Loading 骨架屏 |
+| 6.6 TemplatePreview | ✅ | 模态框预览，大图展示，选择操作 |
+| 6.7 TemplatesPage | ✅ | 完整页面布局，筛选功能 |
+
+**已创建文件**:
+**类型定义**:
+- `frontend/src/features/publish/templates/types/Template.ts`
+
+**API 层**:
+- `frontend/src/features/publish/templates/api/templatesApi.ts`
+
+**状态管理**:
+- `frontend/src/features/publish/templates/stores/templatesStore.ts`
+
+**组件**:
+- `frontend/src/features/publish/templates/components/TemplateCard.vue`
+- `frontend/src/features/publish/templates/components/TemplateGrid.vue`
+- `frontend/src/features/publish/templates/components/TemplatePreview.vue`
+- `frontend/src/features/publish/templates/components/TemplateFilterBar.vue`
+- `frontend/src/features/publish/templates/components/index.ts`
+
+**页面**:
+- `frontend/src/features/publish/templates/pages/TemplatesPage.vue`
+
+**设计符合度**: 100% 符合 Nothing Design System 规范
+- ✅ 机械感样式（4px圆角、细边框）
+- ✅ 字体层级（Doto + Space Grotesk + Space Mono）
+- ✅ 悬停状态（预览按钮淡入）
+- ✅ 选中状态（点阵背景 + 勾选图标）
+- ✅ 响应式网格（Mobile 1列、Tablet 2列、Desktop 3-4列）
 
 ---
 
@@ -1741,12 +1785,12 @@ npm run test
 | 3: 认证模块 | 8 | ✅ | 100% |
 | 4: 素材库 | 10 | ✅ | 100% |
 | 5: 作品编辑器 | 15 | ✅ | 100% |
-| 6: 模版选择 | 7 | ⬜ | 0% |
+| 6: 模版选择 | 7 | ✅ | 100% |
 | 7: 网页管理 | 8 | ⬜ | 0% |
 | 8: 管理后台 | 9 | ⬜ | 0% |
 | 9: 整合优化 | 6 | 🟡 | 17% |
 | 10: 验收交付 | 5 | ⬜ | 0% |
-| **总计** | **105** | - | **66%** |
+| **总计** | **105** | - | **73%** |
 
 ---
 
@@ -1759,10 +1803,11 @@ npm run test
 - ✅ Phase 3: 认证模块 (2026-05-27)
 - ✅ Phase 4: 素材库模块 (2026-05-27)
 - ✅ Phase 5: 作品编辑器模块 (2026-05-27)
+- ✅ Phase 6: 模版选择 (2026-05-27)
 
 **进行中**: 无
 
-**待开始**: Phase 6-10
+**待开始**: Phase 7-10
 
 ---
 
@@ -1792,7 +1837,7 @@ npm run test
 
 ## 下一步
 
-开始执行 **Phase 6: 模版选择**，从 Task 6.1 开始。
+开始执行 **Phase 7: 网页管理**，从 Task 7.1 开始。
 
 ---
 

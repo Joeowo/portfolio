@@ -24,13 +24,13 @@ const user = computed(() => authStore.user)
 const navItems = computed(() => {
   const items = [
     { path: '/studio/assets', label: 'ASSETS', icon: '01' },
-    { path: '/studio/works', label: 'WORKS', icon: '02' }
+    { path: '/studio/works', label: 'WORKS', icon: '02' },
+    { path: '/publish/templates', label: 'TEMPLATES', icon: '03' }
   ]
 
   // 管理员可以看到更多选项
   if (authStore.isAdmin) {
     items.push(
-      { path: '/publish/templates', label: 'TEMPLATES', icon: '03' },
       { path: '/publish/pages', label: 'PAGES', icon: '04' },
       { path: '/admin', label: 'ADMIN', icon: '05' }
     )
@@ -62,7 +62,11 @@ const toggleUserMenu = () => {
 
 // 用户名首字母
 const userInitial = computed(() => {
-  return user.value?.nickname?.charAt(0).toUpperCase() || user.value?.username?.charAt(0).toUpperCase() || 'U'
+  return (
+    user.value?.nickname?.charAt(0).toUpperCase() ||
+    user.value?.username?.charAt(0).toUpperCase() ||
+    'U'
+  )
 })
 </script>
 
@@ -97,12 +101,12 @@ const userInitial = computed(() => {
           <div v-if="showUserMenu" class="user-dropdown">
             <div class="user-dropdown__info">
               <span class="user-dropdown__name">{{ user?.nickname || user?.username }}</span>
-              <span class="user-dropdown__role">{{ user?.role === 'ADMIN' ? '管理员' : '创作者' }}</span>
+              <span class="user-dropdown__role">{{
+                user?.role === 'ADMIN' ? '管理员' : '创作者'
+              }}</span>
             </div>
             <div class="user-dropdown__divider"></div>
-            <button class="user-dropdown__item" @click="handleLogout">
-              [退出登录]
-            </button>
+            <button class="user-dropdown__item" @click="handleLogout">[退出登录]</button>
           </div>
         </Transition>
       </div>
@@ -289,8 +293,9 @@ const userInitial = computed(() => {
 
 .dropdown-enter-active,
 .dropdown-leave-active {
-  transition: opacity var(--duration-fast) var(--ease-out),
-              transform var(--duration-fast) var(--ease-out);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .dropdown-enter-from,

@@ -44,10 +44,7 @@ export const authHandlers = [
 
     // Mock password check - any password >= 6 chars works for demo
     if (!user || body.password.length < 6) {
-      return HttpResponse.json(
-        { code: 401, msg: '用户名或密码错误', data: null },
-        { status: 401 }
-      )
+      return HttpResponse.json({ code: 401, msg: '用户名或密码错误', data: null }, { status: 401 })
     }
 
     // Generate mock tokens
@@ -76,10 +73,7 @@ export const authHandlers = [
     // Check if username already exists
     const existingUser = getUserByUsername(body.username)
     if (existingUser) {
-      return HttpResponse.json(
-        { code: 400, msg: '用户名已存在', data: null },
-        { status: 400 }
-      )
+      return HttpResponse.json({ code: 400, msg: '用户名已存在', data: null }, { status: 400 })
     }
 
     // Create new user
@@ -147,10 +141,7 @@ export const authHandlers = [
 
     const authHeader = request.headers.get('Authorization')
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return HttpResponse.json(
-        { code: 401, msg: '未授权', data: null },
-        { status: 401 }
-      )
+      return HttpResponse.json({ code: 401, msg: '未授权', data: null }, { status: 401 })
     }
 
     // Extract user ID from token (format: mock-access-token-{userId}-...)
@@ -192,7 +183,7 @@ export const authHandlers = [
   http.put('/api/auth/profile', async ({ request }) => {
     await delay(400)
 
-    const body = await request.json() as { nickname?: string; avatar?: string; bio?: string }
+    const body = (await request.json()) as { nickname?: string; avatar?: string; bio?: string }
     const user = mockUsers[0]
 
     // Update user

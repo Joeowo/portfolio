@@ -34,10 +34,7 @@ const dotColor = computed(() => {
 <style scoped>
 .n-dot-pattern {
   position: relative;
-  background-image: radial-gradient(
-    var(--dot-color) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
   background-size: var(--dot-size, 16px) var(--dot-size, 16px);
   opacity: var(--dot-opacity, 0.5);
 }

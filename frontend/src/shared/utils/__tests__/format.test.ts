@@ -55,7 +55,9 @@ describe('formatNumber', () => {
   })
 
   it('should format with options', () => {
-    expect(formatNumber(1234.567, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toBe('1,234.57')
+    expect(formatNumber(1234.567, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toBe(
+      '1,234.57'
+    )
   })
 })
 

@@ -11,9 +11,7 @@ const router = useRouter()
       <div class="not-found__number">404</div>
       <h1 class="not-found__title">PAGE NOT FOUND</h1>
       <p class="not-found__description">The page you're looking for doesn't exist.</p>
-      <NButton type="primary" @click="router.push('/studio/assets')">
-        Go to Studio
-      </NButton>
+      <NButton type="primary" @click="router.push('/studio/assets')"> Go to Studio </NButton>
     </div>
   </div>
 </template>

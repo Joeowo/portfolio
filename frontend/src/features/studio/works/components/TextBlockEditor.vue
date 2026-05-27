@@ -28,7 +28,7 @@ const content = ref('')
 // 监听 section 变化，初始化表单
 watch(
   () => props.section,
-  (newSection) => {
+  newSection => {
     if (newSection?.content.text_block) {
       content.value = newSection.content.text_block.content || ''
     } else {
@@ -71,7 +71,12 @@ const handleKeydown = (e: KeyboardEvent) => {
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="open" class="text-block-editor-overlay" @click.self="handleCancel" @keydown="handleKeydown">
+      <div
+        v-if="open"
+        class="text-block-editor-overlay"
+        @click.self="handleCancel"
+        @keydown="handleKeydown"
+      >
         <div class="text-block-editor">
           <!-- 头部 -->
           <div class="text-block-editor__header">

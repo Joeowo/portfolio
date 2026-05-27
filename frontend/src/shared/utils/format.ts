@@ -77,10 +77,7 @@ export function formatFileSize(bytes: number): string {
  * @param options - Intl.NumberFormatOptions
  * @returns Formatted number string
  */
-export function formatNumber(
-  num: number,
-  options?: Intl.NumberFormatOptions
-): string {
+export function formatNumber(num: number, options?: Intl.NumberFormatOptions): string {
   if (isNaN(num)) return '0'
 
   return num.toLocaleString('zh-CN', options)

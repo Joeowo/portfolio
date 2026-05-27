@@ -59,10 +59,7 @@ withDefaults(defineProps<Props>(), {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(
-    var(--color-dot-pattern) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(var(--color-dot-pattern) 1px, transparent 1px);
   background-size: 16px 16px;
   opacity: var(--dot-pattern-opacity, 0.5);
   pointer-events: none;

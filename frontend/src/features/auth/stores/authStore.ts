@@ -16,9 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Computed
   const isAuthenticated = computed(() => !!token.value && !!user.value)
-  const isAdmin = computed(() =>
-    user.value?.role === 'ADMIN' || user.value?.role === 'SUPER_ADMIN'
-  )
+  const isAdmin = computed(() => user.value?.role === 'ADMIN' || user.value?.role === 'SUPER_ADMIN')
   const username = computed(() => user.value?.username ?? '')
   const nickname = computed(() => user.value?.nickname ?? user.value?.username ?? '')
 
@@ -137,11 +135,7 @@ export const useAuthStore = defineStore('auth', () => {
     setUser(null)
   }
 
-  async function updateProfile(data: {
-    nickname?: string
-    avatar?: string
-    bio?: string
-  }) {
+  async function updateProfile(data: { nickname?: string; avatar?: string; bio?: string }) {
     isLoading.value = true
     try {
       const updatedUser = await authApi.updateProfile(data)

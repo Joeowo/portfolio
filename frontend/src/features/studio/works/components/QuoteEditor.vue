@@ -29,7 +29,7 @@ const author = ref('')
 // 监听 section 变化，初始化表单
 watch(
   () => props.section,
-  (newSection) => {
+  newSection => {
     if (newSection?.content.quote) {
       content.value = newSection.content.quote.content || ''
       author.value = newSection.content.quote.author || ''
@@ -80,7 +80,12 @@ const handleKeydown = (e: KeyboardEvent) => {
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="open" class="quote-editor-overlay" @click.self="handleCancel" @keydown="handleKeydown">
+      <div
+        v-if="open"
+        class="quote-editor-overlay"
+        @click.self="handleCancel"
+        @keydown="handleKeydown"
+      >
         <div class="quote-editor">
           <!-- 头部 -->
           <div class="quote-editor__header">

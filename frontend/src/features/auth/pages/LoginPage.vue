@@ -31,17 +31,9 @@ const handleLogin = async (data: { username: string; password: string }) => {
     <div class="login-page">
       <AuthHeader label="LOGIN" title="Portfolio" />
 
-      <AuthLoginForm
-        ref="loginFormRef"
-        :loading="authStore.isLoading"
-        @submit="handleLogin"
-      />
+      <AuthLoginForm ref="loginFormRef" :loading="authStore.isLoading" @submit="handleLogin" />
 
-      <AuthFooter
-        text="No account?"
-        link-text="Join"
-        link-to="/register"
-      />
+      <AuthFooter text="No account?" link-text="Join" link-to="/register" />
     </div>
   </MinimalLayout>
 </template>

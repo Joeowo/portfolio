@@ -46,8 +46,8 @@ describe('validatePassword', () => {
   it('should calculate password strength correctly', () => {
     expect(validatePassword('abcdef').strength).toBe('weak')
     expect(validatePassword('abcdef12').strength).toBe('fair')
-    expect(validatePassword('Abcdef12!').strength).toBe('good')  // 10 chars + all 4 char types
-    expect(validatePassword('Abcdefgh1234!').strength).toBe('strong')  // 13 chars + all 4 char types = score 6
+    expect(validatePassword('Abcdef12!').strength).toBe('good') // 10 chars + all 4 char types
+    expect(validatePassword('Abcdefgh1234!').strength).toBe('strong') // 13 chars + all 4 char types = score 6
   })
 })
 

@@ -93,9 +93,7 @@ defineExpose({
       @enter="handleSubmit"
     />
 
-    <div v-if="errors.form" class="auth-login-form__error">
-      [ {{ errors.form }} ]
-    </div>
+    <div v-if="errors.form" class="auth-login-form__error">[ {{ errors.form }} ]</div>
 
     <NButton
       type="primary"

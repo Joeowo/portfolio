@@ -91,7 +91,7 @@ const typeOptions: Array<{ value: AssetType | ''; label: string; icon: string }>
         </button>
 
         <!-- Filter Dropdown -->
-        <div v-if="showFilterMenu" class="filter-bar__dropdown" v-click-outside="closeFilterMenu">
+        <div v-if="showFilterMenu" v-click-outside="closeFilterMenu" class="filter-bar__dropdown">
           <div class="filter-bar__dropdown-label">类型</div>
           <button
             v-for="option in typeOptions"
@@ -108,7 +108,10 @@ const typeOptions: Array<{ value: AssetType | ''; label: string; icon: string }>
 
       <!-- View Toggle -->
       <button class="filter-bar__button" @click="toggleViewMode">
-        <Icon :icon="viewMode === 'grid' ? 'ph:squares-four' : 'ph:list-dashes'" class="filter-bar__button-icon" />
+        <Icon
+          :icon="viewMode === 'grid' ? 'ph:squares-four' : 'ph:list-dashes'"
+          class="filter-bar__button-icon"
+        />
       </button>
 
       <!-- Upload Button -->

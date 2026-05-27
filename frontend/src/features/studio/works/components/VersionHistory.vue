@@ -43,11 +43,14 @@ onMounted(() => {
 })
 
 // 监听 open 变化
-watch(() => props.open, (isOpen) => {
-  if (isOpen) {
-    loadVersions()
+watch(
+  () => props.open,
+  isOpen => {
+    if (isOpen) {
+      loadVersions()
+    }
   }
-})
+)
 
 // 回滚版本
 const handleRollback = (version: number) => {
@@ -121,11 +124,7 @@ const isCurrentVersion = (version: WorkVersion) => {
           </div>
 
           <div v-else class="version-items">
-            <div
-              v-for="version in versions"
-              :key="version.id"
-              class="version-item"
-            >
+            <div v-for="version in versions" :key="version.id" class="version-item">
               <div class="version-item__header">
                 <span class="version-item__number">V{{ version.version }}</span>
                 <span v-if="isCurrentVersion(version)" class="version-item__current">[当前]</span>
@@ -154,9 +153,7 @@ const isCurrentVersion = (version: WorkVersion) => {
                 <p class="rollback-confirm__message">
                   确定要回滚到版本 V{{ confirmingRollback }} 吗？
                 </p>
-                <p class="rollback-confirm__note">
-                  当前版本将被保存为新版本。
-                </p>
+                <p class="rollback-confirm__note">当前版本将被保存为新版本。</p>
                 <div class="rollback-confirm__actions">
                   <button class="editor-btn editor-btn--secondary" @click="cancelRollback">
                     取消

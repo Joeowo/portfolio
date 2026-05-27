@@ -29,7 +29,7 @@ const title = ref('')
 // 监听 section 变化，初始化表单
 watch(
   () => props.section,
-  (newSection) => {
+  newSection => {
     if (newSection?.content.video_player) {
       videoId.value = newSection.content.video_player.videoId || null
       title.value = newSection.content.video_player.title || ''
@@ -129,7 +129,11 @@ const handleClose = () => {
           <!-- 底部操作 -->
           <div class="video-player-editor__footer">
             <button class="editor-btn editor-btn--secondary" @click="handleCancel">取消</button>
-            <button class="editor-btn editor-btn--primary" :disabled="!hasVideo" @click="handleSave">
+            <button
+              class="editor-btn editor-btn--primary"
+              :disabled="!hasVideo"
+              @click="handleSave"
+            >
               保存
             </button>
           </div>

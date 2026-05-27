@@ -105,23 +105,13 @@ const handlePreview = () => {
     <!-- 头部工具栏 -->
     <header class="editor-header">
       <div class="editor-header__left">
-        <button class="back-button" @click="goBack">
-          [← 返回]
-        </button>
-        <span class="breadcrumb">
-          我的作品 / {{ currentWork?.title || '未命名作品' }}
-        </span>
+        <button class="back-button" @click="goBack">[← 返回]</button>
+        <span class="breadcrumb"> 我的作品 / {{ currentWork?.title || '未命名作品' }} </span>
       </div>
       <div class="editor-header__right">
-        <span :class="['save-status', saveStatusClass]">
-          [{{ saveStatusText }}]
-        </span>
-        <NButton type="secondary" size="sm" @click="handlePreview">
-          [预览]
-        </NButton>
-        <NButton type="primary" size="sm" @click="handleSave(currentWork!)">
-          [保存]
-        </NButton>
+        <span :class="['save-status', saveStatusClass]"> [{{ saveStatusText }}] </span>
+        <NButton type="secondary" size="sm" @click="handlePreview"> [预览] </NButton>
+        <NButton type="primary" size="sm" @click="handleSave(currentWork!)"> [保存] </NButton>
       </div>
     </header>
 

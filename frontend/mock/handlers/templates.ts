@@ -2,7 +2,7 @@ import { http, HttpResponse, delay } from 'msw'
 import { mockTemplates } from '../data/templates'
 
 // In-memory storage for mutations
-let templates = [...mockTemplates]
+const templates = [...mockTemplates]
 let nextTemplateId = 100
 
 export const templatesHandlers = [
@@ -46,10 +46,7 @@ export const templatesHandlers = [
     const template = templates.find(t => t.id === parseInt(params.id as string))
 
     if (!template) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
     return HttpResponse.json({
@@ -63,7 +60,7 @@ export const templatesHandlers = [
   http.post('/api/templates', async ({ request }) => {
     await delay(300)
 
-    const body = await request.json() as any
+    const body = (await request.json()) as any
     const { name, category, previewUrl, layoutType, description } = body
 
     const newTemplate = {
@@ -94,13 +91,10 @@ export const templatesHandlers = [
     const index = templates.findIndex(t => t.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
     templates[index] = { ...templates[index], ...updates }
 
     return HttpResponse.json({
@@ -117,18 +111,12 @@ export const templatesHandlers = [
     const index = templates.findIndex(t => t.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
     // System templates cannot be deleted
     if (templates[index].type === 'system') {
-      return HttpResponse.json(
-        { code: 400, msg: '系统模版不能删除', data: null },
-        { status: 400 }
-      )
+      return HttpResponse.json({ code: 400, msg: '系统模版不能删除', data: null }, { status: 400 })
     }
 
     templates.splice(index, 1)
@@ -147,13 +135,10 @@ export const templatesHandlers = [
     const index = templates.findIndex(t => t.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
-    const body = await request.json() as { status: boolean }
+    const body = (await request.json()) as { status: boolean }
     templates[index] = { ...templates[index], status: body.status ? 1 : 0 }
 
     return HttpResponse.json({

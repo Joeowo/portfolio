@@ -37,9 +37,8 @@ export const useAssetsStore = defineStore('assets', () => {
 
     if (filters.value.keyword) {
       const keyword = filters.value.keyword.toLowerCase()
-      result = result.filter(a =>
-        a.name.toLowerCase().includes(keyword) ||
-        a.tags?.toLowerCase().includes(keyword)
+      result = result.filter(
+        a => a.name.toLowerCase().includes(keyword) || a.tags?.toLowerCase().includes(keyword)
       )
     }
 
@@ -168,19 +167,22 @@ export const useAssetsStore = defineStore('assets', () => {
       }
       uploadQueue.value.push(uploadItem)
 
-      const promise = assetsApi.upload({
-        file,
-        folderId: currentFolderId.value,
-        userId
-      }).then(asset => {
-        uploadItem.progress = 100
-        uploadItem.status = 'success'
-        return asset
-      }).catch(err => {
-        uploadItem.status = 'error'
-        uploadItem.error = err.message || '上传失败'
-        throw err
-      })
+      const promise = assetsApi
+        .upload({
+          file,
+          folderId: currentFolderId.value,
+          userId
+        })
+        .then(asset => {
+          uploadItem.progress = 100
+          uploadItem.status = 'success'
+          return asset
+        })
+        .catch(err => {
+          uploadItem.status = 'error'
+          uploadItem.error = err.message || '上传失败'
+          throw err
+        })
 
       uploadPromises.push(promise)
     })
@@ -218,7 +220,10 @@ export const useAssetsStore = defineStore('assets', () => {
     }
   }
 
-  const updateAsset = async (id: number, data: { name?: string; tags?: string; folderId?: number | null }) => {
+  const updateAsset = async (
+    id: number,
+    data: { name?: string; tags?: string; folderId?: number | null }
+  ) => {
     loading.value = true
     error.value = null
 
@@ -264,9 +269,7 @@ export const useAssetsStore = defineStore('assets', () => {
     error.value = null
 
     try {
-      await Promise.all(
-        assetIds.map(id => assetsApi.move(id, { folderId }))
-      )
+      await Promise.all(assetIds.map(id => assetsApi.move(id, { folderId })))
 
       // Update local state
       assets.value = assets.value.map(asset => {

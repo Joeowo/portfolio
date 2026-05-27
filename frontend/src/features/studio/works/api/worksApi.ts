@@ -98,7 +98,11 @@ export async function createSectionApi(workId: number, dto: CreateSectionDto): P
 /**
  * 更新区块
  */
-export async function updateSectionApi(workId: number, sectionId: number, dto: UpdateSectionDto): Promise<Section> {
+export async function updateSectionApi(
+  workId: number,
+  sectionId: number,
+  dto: UpdateSectionDto
+): Promise<Section> {
   return request.put<Section>(`${BASE_URL}/${workId}/sections/${sectionId}`, dto)
 }
 
@@ -119,7 +123,10 @@ export async function duplicateSectionApi(workId: number, sectionId: number): Pr
 /**
  * 重新排序区块
  */
-export async function reorderSectionsApi(workId: number, dto: ReorderSectionsDto): Promise<Section[]> {
+export async function reorderSectionsApi(
+  workId: number,
+  dto: ReorderSectionsDto
+): Promise<Section[]> {
   return request.post<Section[]>(`${BASE_URL}/${workId}/sections/reorder`, dto)
 }
 

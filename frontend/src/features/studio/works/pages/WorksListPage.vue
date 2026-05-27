@@ -99,9 +99,7 @@ const handleSearch = () => {
         <h2 class="works-header__subtitle">WORKS</h2>
       </div>
       <div class="works-header__right">
-        <NButton type="primary" @click="handleCreateWork">
-          [+ 新建作品]
-        </NButton>
+        <NButton type="primary" @click="handleCreateWork"> [+ 新建作品] </NButton>
       </div>
     </header>
 
@@ -154,9 +152,7 @@ const handleSearch = () => {
         @unpublish="handleUnpublishWork"
       >
         <template #empty-action>
-          <NButton type="primary" @click="handleCreateWork">
-            [+ 新建作品]
-          </NButton>
+          <NButton type="primary" @click="handleCreateWork"> [+ 新建作品] </NButton>
         </template>
       </WorksList>
     </main>

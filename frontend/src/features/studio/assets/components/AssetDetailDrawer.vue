@@ -30,13 +30,17 @@ const editingTags = ref('')
 const selectedFolderId = ref<number | null>(null)
 
 // Reset form when asset changes
-watch(() => props.asset, (newAsset) => {
-  if (newAsset) {
-    editingName.value = newAsset.name
-    editingTags.value = newAsset.tags || ''
-    selectedFolderId.value = newAsset.folderId
-  }
-}, { immediate: true })
+watch(
+  () => props.asset,
+  newAsset => {
+    if (newAsset) {
+      editingName.value = newAsset.name
+      editingTags.value = newAsset.tags || ''
+      selectedFolderId.value = newAsset.folderId
+    }
+  },
+  { immediate: true }
+)
 
 const formattedSize = computed(() => {
   if (!props.asset) return ''
@@ -122,7 +126,9 @@ const handleDownload = () => {
             />
             <div v-else class="drawer__preview-placeholder">
               <Icon icon="ph:text-aa" class="drawer__preview-icon" />
-              <pre class="drawer__preview-text">{{ asset.assetType === 'text' ? 'Text File' : 'Preview N/A' }}</pre>
+              <pre class="drawer__preview-text">{{
+                asset.assetType === 'text' ? 'Text File' : 'Preview N/A'
+              }}</pre>
             </div>
           </div>
 
@@ -149,18 +155,12 @@ const handleDownload = () => {
             <div class="drawer__fields">
               <div class="drawer__field">
                 <label class="drawer__label">名称</label>
-                <NInput
-                  v-model="editingName"
-                  placeholder="输入文件名"
-                />
+                <NInput v-model="editingName" placeholder="输入文件名" />
               </div>
 
               <div class="drawer__field">
                 <label class="drawer__label">标签</label>
-                <NInput
-                  v-model="editingTags"
-                  placeholder="输入标签，用逗号分隔"
-                />
+                <NInput v-model="editingTags" placeholder="输入标签，用逗号分隔" />
               </div>
 
               <div class="drawer__field">
@@ -200,12 +200,8 @@ const handleDownload = () => {
               删除
             </NButton>
             <div class="drawer__actions-spacer"></div>
-            <NButton type="primary" @click="handleSave">
-              保存更改
-            </NButton>
-            <NButton type="secondary" @click="handleClose">
-              关闭
-            </NButton>
+            <NButton type="primary" @click="handleSave"> 保存更改 </NButton>
+            <NButton type="secondary" @click="handleClose"> 关闭 </NButton>
           </div>
         </div>
       </div>

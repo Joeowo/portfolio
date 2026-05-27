@@ -11,11 +11,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 const registerFormRef = ref<InstanceType<typeof AuthRegisterForm>>()
 
-const handleRegister = async (data: {
-  username: string
-  password: string
-  nickname?: string
-}) => {
+const handleRegister = async (data: { username: string; password: string; nickname?: string }) => {
   try {
     await authStore.register(data)
 
@@ -39,11 +35,7 @@ const handleRegister = async (data: {
         @submit="handleRegister"
       />
 
-      <AuthFooter
-        text="Have account?"
-        link-text="Sign in"
-        link-to="/login"
-      />
+      <AuthFooter text="Have account?" link-text="Sign in" link-to="/login" />
     </div>
   </MinimalLayout>
 </template>

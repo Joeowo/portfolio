@@ -29,7 +29,7 @@ const layout = ref<'grid' | 'masonry'>('grid')
 // 监听 section 变化，初始化表单
 watch(
   () => props.section,
-  (newSection) => {
+  newSection => {
     if (newSection?.content.image_gallery) {
       images.value = [...(newSection.content.image_gallery.images || [])]
       layout.value = newSection.content.image_gallery.layout || 'grid'
@@ -48,8 +48,16 @@ const isEmpty = computed(() => images.value.length === 0)
 const openAssetSelector = () => {
   // 模拟添加图片
   const mockImages: GalleryImage[] = [
-    { id: Date.now(), url: 'https://via.placeholder.com/300', thumbnail: 'https://via.placeholder.com/150' },
-    { id: Date.now() + 1, url: 'https://via.placeholder.com/300', thumbnail: 'https://via.placeholder.com/150' }
+    {
+      id: Date.now(),
+      url: 'https://via.placeholder.com/300',
+      thumbnail: 'https://via.placeholder.com/150'
+    },
+    {
+      id: Date.now() + 1,
+      url: 'https://via.placeholder.com/300',
+      thumbnail: 'https://via.placeholder.com/150'
+    }
   ]
   images.value.push(...mockImages)
 }
@@ -95,12 +103,14 @@ const handleClose = () => {
           <div class="image-gallery-editor__body">
             <!-- 已选择的图片 -->
             <div class="editor-field">
-              <label class="editor-label">
-                已选择的图片 ({{ images.length }})
-              </label>
+              <label class="editor-label"> 已选择的图片 ({{ images.length }}) </label>
               <div v-if="!isEmpty" class="selected-images">
                 <div v-for="img in images" :key="img.id" class="selected-image-item">
-                  <img :src="img.thumbnail || img.url" :alt="img.alt || ''" class="selected-image-thumb" />
+                  <img
+                    :src="img.thumbnail || img.url"
+                    :alt="img.alt || ''"
+                    class="selected-image-thumb"
+                  />
                   <button class="selected-image-remove" @click="removeImage(img.id)">[移除]</button>
                 </div>
               </div>

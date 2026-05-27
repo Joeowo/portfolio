@@ -3,7 +3,7 @@ import { mockWorks, getWorkVersions } from '../data/works'
 import type { Work } from '@/features/studio/works/types'
 
 // In-memory storage for mutations
-let works = [...mockWorks]
+const works = [...mockWorks]
 let nextWorkId = 100
 
 export const worksHandlers = [
@@ -23,22 +23,19 @@ export const worksHandlers = [
     }
 
     if (visibility) {
-      filteredWorks = filteredWorks.filter(
-        w => w.visibility === (visibility === 'public' ? 1 : 0)
-      )
+      filteredWorks = filteredWorks.filter(w => w.visibility === (visibility === 'public' ? 1 : 0))
     }
 
     if (keyword) {
-      filteredWorks = filteredWorks.filter(w =>
-        w.title.toLowerCase().includes(keyword.toLowerCase()) ||
-        (w.description && w.description.toLowerCase().includes(keyword.toLowerCase()))
+      filteredWorks = filteredWorks.filter(
+        w =>
+          w.title.toLowerCase().includes(keyword.toLowerCase()) ||
+          (w.description && w.description.toLowerCase().includes(keyword.toLowerCase()))
       )
     }
 
     // Sort by updated date descending
-    filteredWorks.sort((a, b) =>
-      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    )
+    filteredWorks.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
 
     return HttpResponse.json({
       code: 200,
@@ -57,10 +54,7 @@ export const worksHandlers = [
     const work = works.find(w => w.id === parseInt(params.id as string))
 
     if (!work) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
     return HttpResponse.json({
@@ -74,7 +68,7 @@ export const worksHandlers = [
   http.post('/api/works', async ({ request }) => {
     await delay(400)
 
-    const body = await request.json() as any
+    const body = (await request.json()) as any
     const { title, description, userId } = body
 
     const newWork: Work = {
@@ -107,16 +101,14 @@ export const worksHandlers = [
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
 
     // Increment version if sections changed
-    const shouldIncrementVersion = updates.sections && JSON.stringify(updates.sections) !== JSON.stringify(works[index].sections)
+    const shouldIncrementVersion =
+      updates.sections && JSON.stringify(updates.sections) !== JSON.stringify(works[index].sections)
 
     works[index] = {
       ...works[index],
@@ -139,10 +131,7 @@ export const worksHandlers = [
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
     works.splice(index, 1)
@@ -161,10 +150,7 @@ export const worksHandlers = [
     const originalWork = works.find(w => w.id === parseInt(params.id as string))
 
     if (!originalWork) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
     const duplicatedWork = {
@@ -212,10 +198,7 @@ export const worksHandlers = [
     const index = works.findIndex(w => w.id === workId)
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
     // Get version history
@@ -223,10 +206,7 @@ export const worksHandlers = [
     const targetVersionData = versions.find(v => v.version === targetVersion)
 
     if (!targetVersionData) {
-      return HttpResponse.json(
-        { code: 404, msg: '版本不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '版本不存在', data: null }, { status: 404 })
     }
 
     // Parse version data
@@ -256,13 +236,10 @@ export const worksHandlers = [
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
-    const body = await request.json() as { visibility: string }
+    const body = (await request.json()) as { visibility: string }
     works[index] = {
       ...works[index],
       visibility: body.visibility === 'public' ? 1 : 0,

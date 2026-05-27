@@ -64,7 +64,7 @@ export const adminHandlers = [
   http.put('/api/admin/pages/:id/review', async ({ request }) => {
     await delay(300)
 
-    const body = await request.json() as { approve: boolean }
+    const body = (await request.json()) as { approve: boolean }
     const approve = body.approve
 
     return HttpResponse.json({
@@ -105,7 +105,7 @@ export const adminHandlers = [
   http.post('/api/admin/templates', async ({ request }) => {
     await delay(300)
 
-    const body = await request.json() as any
+    const body = (await request.json()) as any
     const newTemplate = {
       id: Date.now(),
       ...body,
@@ -125,7 +125,7 @@ export const adminHandlers = [
   http.put('/api/admin/templates/:id', async ({ request }) => {
     await delay(300)
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
 
     return HttpResponse.json({
       code: 200,
@@ -149,7 +149,7 @@ export const adminHandlers = [
   http.put('/api/admin/templates/:id/status', async ({ request }) => {
     await delay(200)
 
-    const body = await request.json() as { status: boolean }
+    const body = (await request.json()) as { status: boolean }
     const status = body.status
 
     return HttpResponse.json({
@@ -177,7 +177,7 @@ export const adminHandlers = [
   http.put('/api/admin/users/:id/role', async ({ request }) => {
     await delay(200)
 
-    const body = await request.json() as { role: string }
+    const body = (await request.json()) as { role: string }
     const role = body.role
 
     return HttpResponse.json({

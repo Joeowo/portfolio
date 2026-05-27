@@ -30,7 +30,7 @@ const localSections = ref<Section[]>([...props.sections])
 // 同步外部 sections 变化
 watch(
   () => props.sections,
-  (newSections) => {
+  newSections => {
     localSections.value = [...newSections]
   },
   { deep: true }
@@ -135,10 +135,7 @@ const handleDuplicate = (section: Section) => {
           <span class="add-menu-description">{{ option.description }}</span>
         </button>
       </div>
-      <button
-        :class="['add-button', { 'add-button--active': showAddMenu }]"
-        @click="toggleAddMenu"
-      >
+      <button :class="['add-button', { 'add-button--active': showAddMenu }]" @click="toggleAddMenu">
         <span class="add-icon">+</span>
         <span>添加区块</span>
         <span class="add-arrow">{{ showAddMenu ? '▼' : '▶' }}</span>

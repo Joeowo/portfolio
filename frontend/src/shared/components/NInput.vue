@@ -62,11 +62,11 @@ const handleKeydown = (e: KeyboardEvent) => {
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
+        v-bind="$attrs"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
         @keydown="handleKeydown"
-        v-bind="$attrs"
       />
     </div>
 

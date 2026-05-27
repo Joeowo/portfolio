@@ -112,10 +112,7 @@ const toggleMenu = (e: Event) => {
 </script>
 
 <template>
-  <div
-    :class="['work-card', { 'work-card--selected': selected }]"
-    @click="handleClick"
-  >
+  <div :class="['work-card', { 'work-card--selected': selected }]" @click="handleClick">
     <!-- 封面图 -->
     <div class="work-card__cover">
       <img
@@ -129,7 +126,7 @@ const toggleMenu = (e: Event) => {
       </div>
 
       <!-- 悬停菜单 -->
-      <div class="work-card__menu" ref="menuRef">
+      <div ref="menuRef" class="work-card__menu">
         <button class="work-card__menu-btn" @click="toggleMenu">
           <span class="dots">···</span>
         </button>

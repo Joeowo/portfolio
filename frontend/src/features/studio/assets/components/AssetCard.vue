@@ -76,6 +76,7 @@ const closeMenu = () => {
 
 <template>
   <div
+    v-click-outside="closeMenu"
     class="asset-card"
     :class="{
       'asset-card--selected': selected,
@@ -84,7 +85,6 @@ const closeMenu = () => {
     @click="handleClick"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
-    v-click-outside="closeMenu"
   >
     <!-- Thumbnail Area -->
     <div class="asset-card__thumbnail">

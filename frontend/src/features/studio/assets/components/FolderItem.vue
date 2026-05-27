@@ -65,12 +65,11 @@ const cancelEditing = () => {
       @click="handleClick"
     >
       <!-- Expand/Collapse Icon -->
-      <button
-        v-if="hasChildren"
-        class="folder-item__expand"
-        @click.stop="handleToggle"
-      >
-        <Icon :icon="expanded ? 'ph:caret-down-bold' : 'ph:caret-right-bold'" class="folder-item__expand-icon" />
+      <button v-if="hasChildren" class="folder-item__expand" @click.stop="handleToggle">
+        <Icon
+          :icon="expanded ? 'ph:caret-down-bold' : 'ph:caret-right-bold'"
+          class="folder-item__expand-icon"
+        />
       </button>
       <div v-else class="folder-item__spacer"></div>
 
@@ -93,10 +92,10 @@ const cancelEditing = () => {
 
       <!-- Actions (shown on hover) -->
       <div v-if="!editing" class="folder-item__actions">
-        <button class="folder-item__action" @click.stop="handleCreate" title="新建子文件夹">
+        <button class="folder-item__action" title="新建子文件夹" @click.stop="handleCreate">
           <Icon icon="ph:plus" class="folder-item__action-icon" />
         </button>
-        <button class="folder-item__action" @click.stop="startEditing" title="重命名">
+        <button class="folder-item__action" title="重命名" @click.stop="startEditing">
           <Icon icon="ph:pencil" class="folder-item__action-icon" />
         </button>
       </div>

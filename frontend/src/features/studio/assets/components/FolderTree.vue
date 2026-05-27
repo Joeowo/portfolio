@@ -77,7 +77,9 @@ defineExpose({
     >
       <Icon icon="ph:files" class="folder-item__icon" />
       <span class="folder-item__name">全部素材</span>
-      <span class="folder-item__count">{{ folders.reduce((acc, f) => acc + (f.assetCount || 0), 0) }}</span>
+      <span class="folder-item__count">{{
+        folders.reduce((acc, f) => acc + (f.assetCount || 0), 0)
+      }}</span>
     </div>
 
     <!-- Folder Tree -->
@@ -94,11 +96,7 @@ defineExpose({
     />
 
     <!-- Create Folder Button -->
-    <button
-      v-if="showCreateButton"
-      class="folder-tree__create-btn"
-      @click="handleCreate(null)"
-    >
+    <button v-if="showCreateButton" class="folder-tree__create-btn" @click="handleCreate(null)">
       <Icon icon="ph:plus" class="folder-tree__create-icon" />
       新建文件夹
     </button>

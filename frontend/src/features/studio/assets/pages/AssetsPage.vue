@@ -163,13 +163,15 @@ onMounted(() => {
         <!-- Selection Actions Bar (shown when in select mode) -->
         <div v-if="isSelectMode" class="assets-page__selection-bar">
           <div class="selection-bar__info">
-            已选择 <span class="selection-bar__count">{{ assetsStore.selectedAssetIds.size }}</span> 个素材
+            已选择
+            <span class="selection-bar__count">{{ assetsStore.selectedAssetIds.size }}</span> 个素材
           </div>
           <div class="selection-bar__actions">
-            <button class="selection-bar__button" @click="toggleSelectMode">
-              取消选择
-            </button>
-            <button class="selection-bar__button selection-bar__button--danger" @click="handleDeleteSelected">
+            <button class="selection-bar__button" @click="toggleSelectMode">取消选择</button>
+            <button
+              class="selection-bar__button selection-bar__button--danger"
+              @click="handleDeleteSelected"
+            >
               <Icon icon="ph:trash" class="selection-bar__icon" />
               删除选中
             </button>
@@ -206,7 +208,7 @@ onMounted(() => {
         :asset="selectedAsset"
         :open="isDrawerOpen"
         :folders="assetsStore.folders"
-        @close="() => isDrawerOpen = false"
+        @close="() => (isDrawerOpen = false)"
         @update="handleDrawerUpdate"
         @delete="handleDrawerDelete"
         @download="handleDownload"

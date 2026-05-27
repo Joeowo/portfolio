@@ -44,12 +44,7 @@ const initials = computed(() => {
       '--font-size': fontSizes[size]
     }"
   >
-    <img
-      v-if="src"
-      :src="src"
-      :alt="alt || name"
-      class="n-avatar__image"
-    />
+    <img v-if="src" :src="src" :alt="alt || name" class="n-avatar__image" />
     <span v-else-if="initials" class="n-avatar__initials">
       {{ initials }}
     </span>

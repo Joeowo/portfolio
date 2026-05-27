@@ -66,9 +66,9 @@ export const useWorksStore = defineStore('works', () => {
     // 搜索筛选
     if (searchKeyword.value) {
       const keyword = searchKeyword.value.toLowerCase()
-      result = result.filter(w =>
-        w.title.toLowerCase().includes(keyword) ||
-        w.description?.toLowerCase().includes(keyword)
+      result = result.filter(
+        w =>
+          w.title.toLowerCase().includes(keyword) || w.description?.toLowerCase().includes(keyword)
       )
     }
 
@@ -393,11 +393,14 @@ export const useWorksStore = defineStore('works', () => {
    */
   function startAutoSave() {
     stopAutoSave()
-    autoSaveTimer.value = window.setInterval(() => {
-      if (hasUnsavedChanges.value && currentWork.value) {
-        autoSave()
-      }
-    }, 5 * 60 * 1000) // 5 分钟
+    autoSaveTimer.value = window.setInterval(
+      () => {
+        if (hasUnsavedChanges.value && currentWork.value) {
+          autoSave()
+        }
+      },
+      5 * 60 * 1000
+    ) // 5 分钟
   }
 
   /**

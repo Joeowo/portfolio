@@ -4,7 +4,7 @@ import { getTemplateById } from '../data/templates'
 import { getWorkById } from '../data/works'
 
 // In-memory storage for mutations
-let pages = [...mockPages]
+const pages = [...mockPages]
 let nextPageId = 100
 
 export const pagesHandlers = [
@@ -12,25 +12,20 @@ export const pagesHandlers = [
   http.post('/api/pages/generate', async ({ request }) => {
     await delay(1000)
 
-    const body = await request.json() as any
-    const { workId, templateId, userId, title, description, seoTitle, seoDescription, customSlug } = body
+    const body = (await request.json()) as any
+    const { workId, templateId, userId, title, description, seoTitle, seoDescription, customSlug } =
+      body
 
     // Get work and template
     const work = getWorkById(workId)
     const template = getTemplateById(templateId)
 
     if (!work) {
-      return HttpResponse.json(
-        { code: 404, msg: '作品不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
     if (!template) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
     // Create new page
@@ -87,9 +82,7 @@ export const pagesHandlers = [
     }
 
     // Sort by updated date descending
-    filteredPages.sort((a, b) =>
-      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    )
+    filteredPages.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
 
     return HttpResponse.json({
       code: 200,
@@ -108,10 +101,7 @@ export const pagesHandlers = [
     const page = pages.find(p => p.id === parseInt(params.id as string))
 
     if (!page) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
     return HttpResponse.json({
@@ -128,13 +118,10 @@ export const pagesHandlers = [
     const index = pages.findIndex(p => p.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
-    const updates = await request.json() as any
+    const updates = (await request.json()) as any
 
     // If page is published, don't allow some fields to change
     if (pages[index].status === 'published') {
@@ -158,20 +145,14 @@ export const pagesHandlers = [
     const index = pages.findIndex(p => p.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
-    const body = await request.json() as { templateId: number }
+    const body = (await request.json()) as { templateId: number }
     const template = getTemplateById(body.templateId)
 
     if (!template) {
-      return HttpResponse.json(
-        { code: 404, msg: '模版不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
     // Update with new template
@@ -203,13 +184,10 @@ export const pagesHandlers = [
     const index = pages.findIndex(p => p.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
-    const body = await request.json() as { status: string }
+    const body = (await request.json()) as { status: string }
 
     pages[index] = {
       ...pages[index],
@@ -244,10 +222,7 @@ export const pagesHandlers = [
     const page = pages.find(p => p.id === parseInt(params.id as string))
 
     if (!page) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
     // Increment view count
@@ -274,10 +249,7 @@ export const pagesHandlers = [
     const index = pages.findIndex(p => p.id === parseInt(params.id as string))
 
     if (index === -1) {
-      return HttpResponse.json(
-        { code: 404, msg: '页面不存在', data: null },
-        { status: 404 }
-      )
+      return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
     pages.splice(index, 1)

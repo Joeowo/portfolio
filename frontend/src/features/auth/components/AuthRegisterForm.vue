@@ -70,7 +70,7 @@ const validate = (): boolean => {
     errors.value.nickname = 'Nickname must be at most 50 characters'
   }
 
-  return Object.values(errors.value).every((v) => !v)
+  return Object.values(errors.value).every(v => !v)
 }
 
 const handleSubmit = () => {
@@ -126,9 +126,7 @@ defineExpose({
       @enter="handleSubmit"
     />
 
-    <div v-if="errors.form" class="auth-register-form__error">
-      [ {{ errors.form }} ]
-    </div>
+    <div v-if="errors.form" class="auth-register-form__error">[ {{ errors.form }} ]</div>
 
     <NButton
       type="primary"
