@@ -7,8 +7,8 @@ let works = [...mockWorks]
 let nextWorkId = 100
 
 export const worksHandlers = [
-  // GET /api/portfolio/works
-  http.get('/api/portfolio/works', async ({ request }) => {
+  // GET /api/works
+  http.get('/api/works', async ({ request }) => {
     await delay(200)
 
     const url = new URL(request.url)
@@ -50,8 +50,8 @@ export const worksHandlers = [
     })
   }),
 
-  // GET /api/portfolio/works/:id
-  http.get('/api/portfolio/works/:id', async ({ params }) => {
+  // GET /api/works/:id
+  http.get('/api/works/:id', async ({ params }) => {
     await delay(100)
 
     const work = works.find(w => w.id === parseInt(params.id as string))
@@ -70,8 +70,8 @@ export const worksHandlers = [
     })
   }),
 
-  // POST /api/portfolio/works
-  http.post('/api/portfolio/works', async ({ request }) => {
+  // POST /api/works
+  http.post('/api/works', async ({ request }) => {
     await delay(400)
 
     const body = await request.json() as any
@@ -100,8 +100,8 @@ export const worksHandlers = [
     })
   }),
 
-  // PUT /api/portfolio/works/:id
-  http.put('/api/portfolio/works/:id', async ({ params, request }) => {
+  // PUT /api/works/:id
+  http.put('/api/works/:id', async ({ params, request }) => {
     await delay(300)
 
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
@@ -132,8 +132,8 @@ export const worksHandlers = [
     })
   }),
 
-  // DELETE /api/portfolio/works/:id
-  http.delete('/api/portfolio/works/:id', async ({ params }) => {
+  // DELETE /api/works/:id
+  http.delete('/api/works/:id', async ({ params }) => {
     await delay(200)
 
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
@@ -154,8 +154,8 @@ export const worksHandlers = [
     })
   }),
 
-  // POST /api/portfolio/works/:id/duplicate
-  http.post('/api/portfolio/works/:id/duplicate', async ({ params }) => {
+  // POST /api/works/:id/duplicate
+  http.post('/api/works/:id/duplicate', async ({ params }) => {
     await delay(400)
 
     const originalWork = works.find(w => w.id === parseInt(params.id as string))
@@ -185,8 +185,8 @@ export const worksHandlers = [
     })
   }),
 
-  // GET /api/portfolio/works/:id/versions
-  http.get('/api/portfolio/works/:id/versions', async ({ params }) => {
+  // GET /api/works/:id/versions
+  http.get('/api/works/:id/versions', async ({ params }) => {
     await delay(200)
 
     const workId = parseInt(params.id as string)
@@ -202,8 +202,8 @@ export const worksHandlers = [
     })
   }),
 
-  // POST /api/portfolio/works/:id/versions/:ver/rollback
-  http.post('/api/portfolio/works/:id/versions/:ver/rollback', async ({ params }) => {
+  // POST /api/works/:id/versions/:ver/rollback
+  http.post('/api/works/:id/versions/:ver/rollback', async ({ params }) => {
     await delay(600)
 
     const workId = parseInt(params.id as string)
@@ -249,8 +249,8 @@ export const worksHandlers = [
     })
   }),
 
-  // PUT /api/portfolio/works/:id/visibility
-  http.put('/api/portfolio/works/:id/visibility', async ({ params, request }) => {
+  // PUT /api/works/:id/visibility
+  http.put('/api/works/:id/visibility', async ({ params, request }) => {
     await delay(300)
 
     const index = works.findIndex(w => w.id === parseInt(params.id as string))
