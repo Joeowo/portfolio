@@ -39,7 +39,12 @@ a {
   text-decoration: none;
 }
 
-button {
+/* 仅重置应用内的按钮，不影响第三方组件 */
+.app button,
+#app > button,
+[class*="page"] button,
+[class*="card"] button,
+[class*="button"] button {
   font: inherit;
   color: inherit;
   background: none;

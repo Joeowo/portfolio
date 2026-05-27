@@ -201,3 +201,32 @@ body {
 #app {
   min-height: 100vh;
 }
+
+/* ============================================
+   Element Plus 样式修复
+   防止全局重置影响第三方组件
+   ============================================ */
+
+/* ElMessage 图标大小修复 */
+.el-message__icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* ElMessage 内容区域 */
+.el-message__content {
+  font-size: 14px !important;
+}
+
+/* 防止 button 重置影响 Element Plus 组件内部按钮 */
+.el-button {
+  font: var(--el-font-size-base) var(--el-font-family-base);
+  color: var(--el-button-text-color);
+}
+
+/* 防止 input 重置影响 Element Plus 输入框 */
+.el-input__inner,
+.el-textarea__inner {
+  font: var(--el-font-size-base) var(--el-font-family-base);
+}
