@@ -1,0 +1,60 @@
+{
+  "commands": {
+    "phase": {
+      "description": "开发指定 phase，读取对应任务和设计文档",
+      "reference": null,
+      "category": "Build"
+    },
+    "status": {
+      "description": "查看当前任务完成状态",
+      "reference": null,
+      "category": "Evaluate"
+    },
+    "next": {
+      "description": "查看下一个待开发任务",
+      "reference": null,
+      "category": "Evaluate"
+    },
+    "verify": {
+      "description": "验证当前 phase 的验收标准",
+      "reference": null,
+      "category": "Evaluate"
+    }
+  },
+  "phaseMap": {
+    "1": { "name": "基础设施", "design": null, "prefix": null },
+    "2A": { "name": "共享组件", "design": null, "prefix": "shared/components" },
+    "2B": { "name": "Mock 数据", "design": null, "prefix": "mock" },
+    "3": { "name": "认证模块", "design": "phase-3-auth.md", "prefix": "features/auth" },
+    "4": { "name": "素材库模块", "design": "phase-4-assets-library.md", "prefix": "features/studio/assets" },
+    "5": { "name": "作品编辑器", "design": "phase-5-work-editor.md", "prefix": "features/studio/works" },
+    "6": { "name": "模版选择", "design": "phase-6-templates.md", "prefix": "features/publish/templates" },
+    "7": { "name": "网页管理", "design": "phase-7-pages-management.md", "prefix": "features/publish/pages" },
+    "8": { "name": "管理后台", "design": "phase-8-admin.md", "prefix": "features/admin" },
+    "9": { "name": "整合优化", "design": null, "prefix": null },
+    "10": { "name": "验收交付", "design": null, "prefix": null }
+  },
+  "designSystem": {
+    "name": "Nothing Design System",
+    "fonts": {
+      "primary": "Space Grotesk",
+      "mono": "Space Mono",
+      "display": "Doto"
+    },
+    "principles": [
+      "机械感：小圆角、细边框、无阴影",
+      "全大写标签",
+      "点阵背景装饰",
+      "BEM 命名 + CSS 变量"
+    ]
+  },
+  "techStack": {
+    "framework": "Vue 3",
+    "language": "TypeScript",
+    "build": "Vite",
+    "router": "Vue Router",
+    "state": "Pinia",
+    "ui": "Element Plus (深度定制)",
+    "mock": "MSW"
+  }
+}
