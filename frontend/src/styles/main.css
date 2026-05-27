@@ -203,30 +203,71 @@ body {
 }
 
 /* ============================================
-   Element Plus 样式修复
-   防止全局重置影响第三方组件
+   Element Plus 样式隔离
+   防止全局样式影响第三方组件
    ============================================ */
 
-/* ElMessage 图标大小修复 */
+/* 保护 Element Plus 组件内部元素 */
+.el-message *,
+.el-button *,
+.el-input *,
+.el-select *,
+.el-dropdown *,
+.el-menu *,
+.el-table *,
+.el-dialog *,
+.el-drawer * {
+  box-sizing: border-box !important;
+}
+
+/* ElMessage 特定修复 - 图标大小问题 */
+.el-message {
+  --el-message-font-size: 14px;
+  --el-message-padding: 12px 16px;
+  font-family: var(--el-font-size-base) var(--el-font-family-base) !important;
+}
+
+.el-message__content {
+  font-size: var(--el-message-font-size) !important;
+  line-height: 1.5 !important;
+}
+
+/* 修复特大号错误图标 */
 .el-message__icon {
   font-size: 16px !important;
   width: 16px !important;
   height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* ElMessage 内容区域 */
-.el-message__content {
-  font-size: 14px !important;
+/* ElMessage 内部所有 SVG 和图标 */
+.el-message svg,
+.el-message .el-icon,
+.el-message .el-icon--error,
+.el-message .el-icon--success,
+.el-message .el-icon--warning,
+.el-message .el-icon--info {
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 16px !important;
 }
 
-/* 防止 button 重置影响 Element Plus 组件内部按钮 */
-.el-button {
-  font: var(--el-font-size-base) var(--el-font-family-base);
-  color: var(--el-button-text-color);
-}
-
-/* 防止 input 重置影响 Element Plus 输入框 */
+/* 恢复 Element Plus 组件默认字体 */
+.el-button,
 .el-input__inner,
-.el-textarea__inner {
-  font: var(--el-font-size-base) var(--el-font-family-base);
+.el-textarea__inner,
+.el-select__wrapper,
+.el-textarea {
+  font: var(--el-font-size-base) var(--el-font-family-base) !important;
+}
+
+/* 保护 Element Plus 内部 SVG 不受全局样式影响 */
+.el-message svg,
+.el-button svg,
+.el-input svg,
+.el-select svg {
+  display: inline-block !important;
+  max-width: none !important;
 }
