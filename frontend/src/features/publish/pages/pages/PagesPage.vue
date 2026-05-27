@@ -192,7 +192,7 @@ const handleCreateNew = () => {
 <style scoped>
 .pages-page {
   min-height: 100vh;
-  padding: var(--spacing-screen-lg);
+  padding: var(--spacing-screen-md);
 }
 
 .pages-page__header {

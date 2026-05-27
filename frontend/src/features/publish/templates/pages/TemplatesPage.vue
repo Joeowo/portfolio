@@ -98,7 +98,7 @@ onMounted(() => {
 <style scoped>
 .templates-page {
   min-height: 100vh;
-  padding: var(--spacing-screen-lg);
+  padding: var(--spacing-screen-md);
 }
 
 .templates-page__header {
