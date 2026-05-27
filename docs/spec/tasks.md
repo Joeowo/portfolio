@@ -112,7 +112,7 @@ npm run type-check
 
 **Phase 1 完成时间**: 2026-05-27
 
-## Phase 2A: 共享组件
+## Phase 2A: 共享组件 ✅ COMPLETED
 
 ### Task 2A.1: NButton 组件
 **描述**: 实现 Nothing 风格按钮组件
@@ -389,7 +389,12 @@ npm run type-check
 
 ---
 
-## Phase 2B: Mock 数据
+**Phase 2A 完成时间**: 2026-05-27
+**测试状态**: 32/32 测试通过 ✅
+
+---
+
+## Phase 2B: Mock 数据 ✅ COMPLETED
 
 ### Task 2B.1: Mock 数据定义 - 用户
 **描述**: 创建测试用户数据
@@ -572,6 +577,12 @@ npm run type-check
 
 **涉及文件**:
 - `frontend/mock/browser.ts`
+
+---
+
+**Phase 2B 完成时间**: 2026-05-27
+**Mock 数据**: 5 个数据文件 + 6 个 Handlers
+**API 覆盖**: 所有主要接口已 Mock
 
 ---
 
