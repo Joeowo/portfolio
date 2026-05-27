@@ -32,9 +32,12 @@ class Request {
         if (token && config.headers) {
           config.headers.Authorization = `Bearer ${token}`
         }
+        // Debug: Log outgoing requests
+        console.log('[Request] Sending:', config.method?.toUpperCase(), config.url)
         return config
       },
       error => {
+        console.error('[Request] Request error:', error)
         return Promise.reject(error)
       }
     )
@@ -42,6 +45,13 @@ class Request {
     // Response interceptor
     this.instance.interceptors.response.use(
       (response: AxiosResponse<ApiResponse>) => {
+        console.log('[Request] Response received:', response.config.url, {
+          status: response.status,
+          hasData: !!response.data,
+          dataType: typeof response.data,
+          dataKeys: response.data ? Object.keys(response.data) : null
+        })
+
         // Check if response.data exists
         if (!response.data || typeof response.data !== 'object') {
           console.error('[Request] Invalid response:', response)
@@ -52,6 +62,7 @@ class Request {
         const { code, msg, data } = response.data
 
         if (code === 200) {
+          console.log('[Request] Success:', { url: response.config.url, dataType: typeof data })
           return data
         }
 

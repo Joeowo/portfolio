@@ -14,33 +14,84 @@ import './styles/transitions.css'
 async function initMSW(): Promise<boolean> {
   // Check if we're in development mode
   const isDev = import.meta.env.DEV
-  if (!isDev) return false
+  if (!isDev) {
+    console.log('[MSW] Skipping MSW in production')
+    return false
+  }
 
-  console.log('[App] Initializing MSW...')
+  console.log('[MSW] Initializing MSW in development mode...')
+
   try {
-    const mswModule = await import('../mock/browser')
-    console.log('[MSW] module loaded:', Object.keys(mswModule))
-    const { worker } = mswModule
-    console.log('[MSW] worker:', !!worker)
+    // Check if Service Worker is supported
+    if (!('serviceWorker' in navigator)) {
+      console.error('[MSW] Service Worker not supported in this browser')
+      return false
+    }
 
+    const mswModule = await import('../mock/browser')
+    console.log('[MSW] Module loaded:', Object.keys(mswModule))
+    const { worker } = mswModule
+    console.log('[MSW] Worker instance:', !!worker)
+
+    // Start the worker with detailed options
     await worker.start({
       onUnhandledRequest: 'warn',
       serviceWorker: {
-        url: '/mockServiceWorker.js'
+        url: window.location.origin + '/mockServiceWorker.js'
       }
     })
-    console.log('[MSW] Mocking enabled')
-    console.log('[MSW] Worker started successfully')
+
+    console.log('[MSW] ✅ Worker started successfully')
+
+    // Wait for Service Worker to be fully activated
+    await new Promise<void>((resolve) => {
+      if (navigator.serviceWorker.controller) {
+        console.log('[MSW] Service Worker controller already active')
+        resolve()
+      } else {
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          console.log('[MSW] Service Worker controller changed (now active)')
+          resolve()
+        })
+        // Timeout after 2 seconds
+        setTimeout(() => {
+          console.warn('[MSW] Service Worker activation timeout')
+          resolve()
+        }, 2000)
+      }
+    })
+
+    // Additional wait for stability
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    console.log('[MSW] Service Worker is active and ready to intercept requests')
+
+    // List handlers for debugging
+    const handlers = worker.listHandlers()
+    console.log(`[MSW] Registered ${handlers.length} request handlers`)
+
     return true
   } catch (error) {
-    console.error('[MSW] Failed to start:', error)
+    console.error('[MSW] ❌ Failed to start:', error)
+    console.error('[MSW] Error details:', error instanceof Error ? error.message : error)
     return false
   }
 }
 
 async function setupApp() {
-  // Initialize MSW first
-  await initMSW()
+  // Initialize MSW first and wait for it to be ready
+  console.log('[App] Starting application setup...')
+
+  const mswReady = await initMSW()
+
+  if (mswReady) {
+    // Wait a bit for MSW to be fully ready
+    console.log('[App] Waiting for MSW to stabilize...')
+    await new Promise(resolve => setTimeout(resolve, 100))
+    console.log('[App] MSW should be ready now')
+  } else {
+    console.warn('[App] MSW not ready, API requests will fail without a backend server')
+  }
 
   const app = createApp(App)
   const pinia = createPinia()
@@ -55,6 +106,8 @@ async function setupApp() {
   app.use(ElementPlus, { zIndex: 3000 })
 
   app.mount('#app')
+
+  console.log('[App] Application mounted')
 }
 
 setupApp().catch(console.error)

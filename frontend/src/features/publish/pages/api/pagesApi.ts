@@ -30,7 +30,7 @@ export interface PageListResponse {
  * Generate a new page from work
  */
 export const generatePageApi = async (data: GeneratePageDto): Promise<PublishedPage> => {
-  return await request.post<PublishedPage>('/api/pages/generate', data)
+  return await request.post<PublishedPage>('/pages/generate', data)
 }
 
 /**
@@ -45,7 +45,7 @@ export const getPagesApi = async (query: PageListQuery = {}): Promise<PageListRe
   if (query.page) params.append('page', query.page.toString())
   if (query.pageSize) params.append('pageSize', query.pageSize.toString())
 
-  const url = params.toString() ? `/api/pages?${params}` : '/api/pages'
+  const url = params.toString() ? `/pages?${params}` : '/pages'
   return await request.get<PageListResponse>(url)
 }
 
@@ -53,14 +53,14 @@ export const getPagesApi = async (query: PageListQuery = {}): Promise<PageListRe
  * Get page by ID
  */
 export const getPageApi = async (id: number): Promise<PublishedPage> => {
-  return await request.get<PublishedPage>(`/api/pages/${id}`)
+  return await request.get<PublishedPage>(`/pages/${id}`)
 }
 
 /**
  * Update page
  */
 export const updatePageApi = async (id: number, data: UpdatePageDto): Promise<PublishedPage> => {
-  return await request.put<PublishedPage>(`/api/pages/${id}`, data)
+  return await request.put<PublishedPage>(`/pages/${id}`, data)
 }
 
 /**
@@ -70,7 +70,7 @@ export const regeneratePageApi = async (
   id: number,
   data: RegeneratePageDto
 ): Promise<PublishedPage> => {
-  return await request.post<PublishedPage>(`/api/pages/${id}/regenerate`, data)
+  return await request.post<PublishedPage>(`/pages/${id}/regenerate`, data)
 }
 
 /**
@@ -80,19 +80,19 @@ export const updatePageStatusApi = async (
   id: number,
   data: UpdatePageStatusDto
 ): Promise<PublishedPage> => {
-  return await request.put<PublishedPage>(`/api/pages/${id}/status`, data)
+  return await request.put<PublishedPage>(`/pages/${id}/status`, data)
 }
 
 /**
  * View page (increments view count)
  */
 export const viewPageApi = async (id: number): Promise<PageWithWork> => {
-  return await request.get<PageWithWork>(`/api/pages/view/${id}`)
+  return await request.get<PageWithWork>(`/pages/view/${id}`)
 }
 
 /**
  * Delete page
  */
 export const deletePageApi = async (id: number): Promise<void> => {
-  await request.delete(`/api/pages/${id}`)
+  await request.delete(`/pages/${id}`)
 }

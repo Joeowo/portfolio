@@ -103,8 +103,24 @@ const emptyMessage = computed(() => {
 
 // Actions
 onMounted(async () => {
+  console.log('[PagesPage] Mounted, authStore.user:', authStore.user)
+
+  // Check if MSW is ready
+  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    const registration = await navigator.serviceWorker.getRegistration()
+    console.log('[PagesPage] Service Worker registration:', registration?.active?.state)
+  }
+
   if (authStore.user && authStore.user.id) {
-    await pagesStore.fetchPages(Number(authStore.user.id))
+    console.log('[PagesPage] Fetching pages for user:', authStore.user.id)
+    try {
+      await pagesStore.fetchPages(Number(authStore.user.id))
+      console.log('[PagesPage] Loaded pages:', pagesStore.pages.length)
+    } catch (error) {
+      console.error('[PagesPage] Failed to load pages:', error)
+    }
+  } else {
+    console.log('[PagesPage] No user found, skipping page fetch')
   }
 })
 
