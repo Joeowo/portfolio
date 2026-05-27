@@ -11,32 +11,36 @@ import './styles/main.css'
 import './styles/transitions.css'
 
 // MSW (Mock Service Worker) - only in development
-async function setupApp() {
+async function initMSW(): Promise<boolean> {
   // Check if we're in development mode
   const isDev = import.meta.env.DEV
-  console.log('[App] Environment check:', { isDev, MODE: import.meta.env.MODE })
+  if (!isDev) return false
 
-  // Initialize mocks first in development
-  if (isDev) {
-    console.log('[App] Initializing MSW...')
-    try {
-      const mswModule = await import('../mock/browser')
-      console.log('[App] MSW module loaded:', Object.keys(mswModule))
-      const { worker } = mswModule
-      console.log('[App] MSW worker:', !!worker)
+  console.log('[App] Initializing MSW...')
+  try {
+    const mswModule = await import('../mock/browser')
+    console.log('[MSW] module loaded:', Object.keys(mswModule))
+    const { worker } = mswModule
+    console.log('[MSW] worker:', !!worker)
 
-      await worker.start({
-        onUnhandledRequest: 'bypass',
-        serviceWorker: {
-          url: '/mockServiceWorker.js'
-        }
-      })
-      console.log('[MSW] Mocking enabled')
-      console.log('[MSW] Worker started successfully')
-    } catch (error) {
-      console.error('[MSW] Failed to start:', error)
-    }
+    await worker.start({
+      onUnhandledRequest: 'warn',
+      serviceWorker: {
+        url: '/mockServiceWorker.js'
+      }
+    })
+    console.log('[MSW] Mocking enabled')
+    console.log('[MSW] Worker started successfully')
+    return true
+  } catch (error) {
+    console.error('[MSW] Failed to start:', error)
+    return false
   }
+}
+
+async function setupApp() {
+  // Initialize MSW first
+  await initMSW()
 
   const app = createApp(App)
   const pinia = createPinia()
