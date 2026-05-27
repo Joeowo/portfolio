@@ -94,7 +94,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   background: var(--color-bg-primary);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-sm);
@@ -144,7 +144,7 @@ onUnmounted(() => {
 }
 
 .n-select__option {
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
   color: var(--color-text-primary);
