@@ -1,0 +1,56 @@
+{
+  "name": "portfolio-platform-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portfolio Platform 前端视觉原型 - Nothing Design System",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "format": "prettier --write src/",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "pinia": "^2.1.7",
+    "element-plus": "^2.7.0",
+    "@element-plus/icons-vue": "^2.3.1",
+    "@iconify/vue": "^4.1.1",
+    "vuedraggable": "^4.1.0",
+    "axios": "^1.6.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.8",
+    "vue-tsc": "^2.0.13",
+    "typescript": "^5.4.5",
+    "@types/node": "^20.12.7",
+    "sass": "^1.75.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.25.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "prettier": "^3.2.5",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "msw": "^2.2.14",
+    "vitest": "^1.5.0",
+    "@vue/test-utils": "^2.4.5",
+    "jsdom": "^24.0.0",
+    "@vitest/ui": "^1.5.0"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts}": ["eslint --fix", "prettier --write"],
+    "*.{css,scss}": ["prettier --write"]
+  }
+}
