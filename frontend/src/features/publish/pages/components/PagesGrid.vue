@@ -122,7 +122,7 @@ const handleClick = (page: PublishedPage) => emit('click', page)
 .pages-grid__container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 28px;
+  gap: var(--spacing-component-lg);
 }
 
 /* Responsive */
