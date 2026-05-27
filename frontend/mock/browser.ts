@@ -7,5 +7,6 @@ export const worker = setupWorker(...handlers)
 // Log all handlers for debugging
 console.log('[MSW] Worker created with', handlers.length, 'handlers')
 handlers.forEach(h => {
-  console.log(`[MSW] ${h.info.method.toUpperCase()} ${h.info.path}`)
+  const method = typeof h.info.method === 'string' ? h.info.method.toUpperCase() : 'ALL'
+  console.log(`[MSW] ${method} ${h.info.path}`)
 })

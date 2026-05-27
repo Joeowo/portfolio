@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { mockWorks, getWorkVersions } from '../data/works'
+import type { Work } from '@/features/studio/works/types'
 
 // In-memory storage for mutations
 let works = [...mockWorks]
@@ -76,7 +77,7 @@ export const worksHandlers = [
     const body = await request.json() as any
     const { title, description, userId } = body
 
-    const newWork = {
+    const newWork: Work = {
       id: nextWorkId++,
       userId,
       title,
@@ -84,7 +85,8 @@ export const worksHandlers = [
       coverUrl: undefined,
       sections: [],
       version: 1,
-      visibility: 0 as 0 | 1,
+      visibility: 0,
+      status: 'draft',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
@@ -227,12 +229,15 @@ export const worksHandlers = [
       )
     }
 
+    // Parse version data
+    const versionData = JSON.parse(targetVersionData.data)
+
     // Rollback to target version
     works[index] = {
       ...works[index],
       title: targetVersionData.title,
       description: targetVersionData.description,
-      sections: targetVersionData.sections,
+      sections: versionData.sections || works[index].sections,
       version: works[index].version + 1, // Increment version on rollback
       updatedAt: new Date().toISOString()
     }
