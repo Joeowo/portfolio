@@ -1,86 +1,56 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import NButton from '@/shared/components/NButton.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import MinimalLayout from '@/shared/components/MinimalLayout.vue'
+import AuthHeader from '../components/AuthHeader.vue'
+import AuthFooter from '../components/AuthFooter.vue'
+import AuthRegisterForm from '../components/AuthRegisterForm.vue'
+
+const router = useRouter()
+const loading = ref(false)
+const registerFormRef = ref<InstanceType<typeof AuthRegisterForm>>()
+
+const handleRegister = async (data: {
+  username: string
+  password: string
+  nickname?: string
+}) => {
+  loading.value = true
+
+  // Simulate API call
+  // TODO: Replace with actual auth API call
+  console.log('[Demo] Register:', data)
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  // Demo: accept any valid input and redirect to login
+  // In real implementation, this would auto-login or show success message
+  router.push('/login')
+}
 </script>
 
 <template>
-  <div class="register-page">
-    <div class="register-page__content">
-      <div class="register-page__header">
-        <div class="register-page__label">REGISTER</div>
-        <h1 class="register-page__title">Create Account</h1>
-      </div>
-      <form class="register-page__form" @submit.prevent>
-        <p class="register-page__placeholder">Registration form coming soon...</p>
-        <NButton type="primary" block>Create Account</NButton>
-        <RouterLink to="/login" class="register-page__link">
-          Already have an account? Sign in
-        </RouterLink>
-      </form>
+  <MinimalLayout>
+    <div class="register-page">
+      <AuthHeader label="REGISTER" title="Portfolio" />
+
+      <AuthRegisterForm
+        ref="registerFormRef"
+        :loading="loading"
+        @submit="handleRegister"
+      />
+
+      <AuthFooter
+        text="Have account?"
+        link-text="Sign in"
+        link-to="/login"
+      />
     </div>
-  </div>
+  </MinimalLayout>
 </template>
 
 <style scoped>
 .register-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--spacing-screen-lg);
-}
-
-.register-page__content {
   width: 100%;
   max-width: 480px;
-}
-
-.register-page__header {
-  margin-bottom: var(--spacing-component-lg);
-}
-
-.register-page__label {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-label-lg);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-element-sm);
-}
-
-.register-page__title {
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-display-xl);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-display);
-  line-height: var(--line-height-tight);
-}
-
-.register-page__form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-component-md);
-}
-
-.register-page__placeholder {
-  padding: var(--spacing-element-lg);
-  background: var(--color-bg-secondary);
-  border: 1px dashed var(--color-border-default);
-  border-radius: var(--radius-sm);
-  text-align: center;
-  color: var(--color-text-secondary);
-}
-
-.register-page__link {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-label-md);
-  text-align: center;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.register-page__link:hover {
-  color: var(--color-text-primary);
 }
 </style>
