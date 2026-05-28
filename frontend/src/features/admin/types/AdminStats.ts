@@ -79,7 +79,13 @@ export interface TemplateManageItem {
 
 export interface ActivityItem {
   id: string
-  type: 'user_created' | 'work_created' | 'page_pending' | 'page_approved' | 'page_rejected' | 'page_offline'
+  type:
+    | 'user_created'
+    | 'work_created'
+    | 'page_pending'
+    | 'page_approved'
+    | 'page_rejected'
+    | 'page_offline'
   title: string
   description?: string
   actor?: string

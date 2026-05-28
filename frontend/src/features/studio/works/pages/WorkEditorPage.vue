@@ -50,8 +50,8 @@ onMounted(async () => {
   try {
     await worksStore.fetchWork(workId.value)
     worksStore.startAutoSave()
-  } catch (err: any) {
-    error.value = err.message || '加载作品失败'
+  } catch (err: unknown) {
+    error.value = err instanceof Error ? err.message : '加载作品失败'
   } finally {
     loading.value = false
   }
@@ -83,8 +83,8 @@ const handleSave = async (work: Work) => {
       coverUrl: work.coverUrl,
       visibility: work.visibility
     })
-  } catch (err: any) {
-    error.value = err.message || '保存失败'
+  } catch (err: unknown) {
+    error.value = err instanceof Error ? err.message : '保存失败'
   }
 }
 

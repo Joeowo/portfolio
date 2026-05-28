@@ -14,11 +14,11 @@ const assetsStore = useAssetsStore()
 // State
 const isSelectMode = ref(false)
 const isDrawerOpen = ref(false)
-const selectedAsset = ref<any>(null)
+const selectedAsset = ref<{ id: number; name: string; fileUrl: string } | null>(null)
 const showUploadModal = ref(false)
 
 // Handlers
-const handleGridClick = (asset: any) => {
+const handleGridClick = (asset: { id: number; name: string; fileUrl: string }) => {
   if (isSelectMode.value) {
     assetsStore.toggleSelectAsset(asset.id)
   } else {
@@ -52,7 +52,7 @@ const handleKeywordChange = (value: string) => {
   assetsStore.setFilters({ keyword: value })
 }
 
-const handleTypeChange = (value: any) => {
+const handleTypeChange = (value: string) => {
   assetsStore.setFilters({ type: value })
 }
 
@@ -77,7 +77,10 @@ const handleFolderRename = async (id: number) => {
   }
 }
 
-const handleDrawerUpdate = (id: number, data: any) => {
+const handleDrawerUpdate = (
+  id: number,
+  data: { name?: string; tags?: string; folderId?: number | null }
+) => {
   assetsStore.updateAsset(id, data)
   isDrawerOpen.value = false
 }
@@ -87,7 +90,7 @@ const handleDrawerDelete = (id: number) => {
   isDrawerOpen.value = false
 }
 
-const handleDownload = (asset: any) => {
+const handleDownload = (asset: { fileUrl: string; name: string }) => {
   // Create download link
   const link = document.createElement('a')
   link.href = asset.fileUrl

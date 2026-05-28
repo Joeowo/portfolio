@@ -97,7 +97,7 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
     </div>
 
     <div v-if="loading" class="loading-state">
-      <div class="skeleton-row" v-for="i in 5" :key="i">
+      <div v-for="i in 5" :key="i" class="skeleton-row">
         <div class="skeleton-cell skeleton-cell--id"></div>
         <div class="skeleton-cell skeleton-cell--title"></div>
         <div class="skeleton-cell skeleton-cell--author"></div>
@@ -130,7 +130,9 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
               <div class="title-main">{{ page.title }}</div>
               <div class="title-slug">{{ page.customSlug || `page-${page.id}` }}</div>
             </td>
-            <td class="td td--author">{{ page.user?.nickname || `@${page.user?.username || 'unknown'}` }}</td>
+            <td class="td td--author">
+              {{ page.user?.nickname || `@${page.user?.username || 'unknown'}` }}
+            </td>
             <td class="td td--mono">{{ formatTime(page.createdAt) }}</td>
             <td class="td td--status">
               <span class="status-badge" :class="statusClass(page.status)">
@@ -139,13 +141,25 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
             </td>
             <td class="td td--actions">
               <div class="action-buttons">
-                <button v-if="page.status === 'pending'" class="btn-action btn-action--primary" @click="handleApprove(page.id)">
+                <button
+                  v-if="page.status === 'pending'"
+                  class="btn-action btn-action--primary"
+                  @click="handleApprove(page.id)"
+                >
                   审核通过
                 </button>
-                <button v-if="page.status === 'pending'" class="btn-action btn-action--secondary" @click="handleReject(page.id)">
+                <button
+                  v-if="page.status === 'pending'"
+                  class="btn-action btn-action--secondary"
+                  @click="handleReject(page.id)"
+                >
                   拒绝
                 </button>
-                <button v-if="page.status === 'published'" class="btn-action btn-action--secondary" @click="handleOffline(page.id)">
+                <button
+                  v-if="page.status === 'published'"
+                  class="btn-action btn-action--secondary"
+                  @click="handleOffline(page.id)"
+                >
                   下架
                 </button>
                 <button class="btn-action btn-action--preview" @click="handlePreview(page)">
@@ -159,7 +173,9 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
     </div>
 
     <div v-if="!loading && filteredPages.length > 0" class="list-footer">
-      <span class="footer-text">显示 1-{{ filteredPages.length }} / 共 {{ filteredPages.length }} 条</span>
+      <span class="footer-text"
+        >显示 1-{{ filteredPages.length }} / 共 {{ filteredPages.length }} 条</span
+      >
     </div>
   </div>
 </template>
@@ -466,7 +482,12 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
 
 .skeleton-cell {
   height: 20px;
-  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: var(--radius-xs);

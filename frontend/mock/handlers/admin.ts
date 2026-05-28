@@ -105,7 +105,7 @@ export const adminHandlers = [
   http.post('/api/admin/templates', async ({ request }) => {
     await delay(300)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const newTemplate = {
       id: Date.now(),
       ...body,
@@ -125,7 +125,7 @@ export const adminHandlers = [
   http.put('/api/admin/templates/:id', async ({ request }) => {
     await delay(300)
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
 
     return HttpResponse.json({
       code: 200,

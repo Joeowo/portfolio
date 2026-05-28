@@ -46,16 +46,6 @@ const handleRename = (id: number) => {
   emit('rename', id)
 }
 
-const countAssetsInFolder = (folder: FolderTreeNode): number => {
-  let count = folder.assetCount || 0
-  if (folder.children) {
-    folder.children.forEach(child => {
-      count += countAssetsInFolder(child)
-    })
-  }
-  return count
-}
-
 // Auto-expand folders when created
 const expandFolder = (id: number) => {
   expandedFolders.value.add(id)

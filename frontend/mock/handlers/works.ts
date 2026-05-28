@@ -68,7 +68,7 @@ export const worksHandlers = [
   http.post('/api/works', async ({ request }) => {
     await delay(400)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const { title, description, userId } = body
 
     const newWork: Work = {
@@ -104,7 +104,7 @@ export const worksHandlers = [
       return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
     }
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
 
     // Increment version if sections changed
     const shouldIncrementVersion =

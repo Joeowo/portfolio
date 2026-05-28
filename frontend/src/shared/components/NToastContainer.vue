@@ -47,12 +47,7 @@ function handleClose(id: string) {
 <template>
   <div :class="['toast-container', positionClass]">
     <TransitionGroup name="toast-list" tag="div" class="toast-list">
-      <NToast
-        v-for="item in items"
-        :key="item.id"
-        v-bind="item"
-        @close="handleClose(item.id)"
-      />
+      <NToast v-for="item in items" :key="item.id" v-bind="item" @close="handleClose(item.id)" />
     </TransitionGroup>
   </div>
 </template>

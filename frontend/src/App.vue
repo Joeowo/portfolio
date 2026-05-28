@@ -4,7 +4,11 @@ import MainNavigation from '@/shared/components/MainNavigation.vue'
 import NToastContainer from '@/shared/components/NToastContainer.vue'
 import NConfirmDialog from '@/shared/components/NConfirmDialog.vue'
 import { getToasts } from '@/shared/composables/useNotification'
-import { getDialogState, handleDialogConfirm, handleDialogCancel } from '@/shared/composables/useDialog'
+import {
+  getDialogState,
+  handleDialogConfirm,
+  handleDialogCancel
+} from '@/shared/composables/useDialog'
 
 // Get global toast state
 const toasts = getToasts()
@@ -32,18 +36,10 @@ function handleCloseToast(id: string) {
   <MainNavigation />
 
   <!-- Toast 容器 -->
-  <NToastContainer
-    :items="toasts"
-    position="top-right"
-    @close="handleCloseToast"
-  />
+  <NToastContainer :items="toasts" position="top-right" @close="handleCloseToast" />
 
   <!-- 确认对话框 -->
-  <NConfirmDialog
-    v-bind="dialogState"
-    @confirm="handleConfirm"
-    @cancel="handleCancel"
-  />
+  <NConfirmDialog v-bind="dialogState" @confirm="handleConfirm" @cancel="handleCancel" />
 
   <!-- 页面内容 -->
   <div class="app-content">

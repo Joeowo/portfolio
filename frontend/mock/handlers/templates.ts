@@ -60,7 +60,7 @@ export const templatesHandlers = [
   http.post('/api/templates', async ({ request }) => {
     await delay(300)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const { name, category, previewUrl, layoutType, description } = body
 
     const newTemplate = {
@@ -69,7 +69,7 @@ export const templatesHandlers = [
       category,
       type: 'custom' as const,
       previewUrl,
-      layoutType: layoutType as any,
+      layoutType: layoutType as 'single' | 'grid' | 'two_column',
       description,
       status: 1 as 0 | 1,
       createdAt: new Date().toISOString()
@@ -94,7 +94,7 @@ export const templatesHandlers = [
       return HttpResponse.json({ code: 404, msg: '模版不存在', data: null }, { status: 404 })
     }
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
     templates[index] = { ...templates[index], ...updates }
 
     return HttpResponse.json({

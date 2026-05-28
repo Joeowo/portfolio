@@ -108,8 +108,8 @@ export const useAssetsStore = defineStore('assets', () => {
         ...params
       })
       assets.value = response.list
-    } catch (err: any) {
-      error.value = err.message || '加载素材失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '加载素材失败'
       console.error('Failed to fetch assets:', err)
     } finally {
       loading.value = false
@@ -120,8 +120,8 @@ export const useAssetsStore = defineStore('assets', () => {
     try {
       const userId = 1 // TODO: Get from auth store
       folders.value = await foldersApi.list(userId)
-    } catch (err: any) {
-      error.value = err.message || '加载文件夹失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '加载文件夹失败'
       console.error('Failed to fetch folders:', err)
     }
   }
@@ -212,8 +212,8 @@ export const useAssetsStore = defineStore('assets', () => {
       })
       assets.value.push(asset)
       return asset
-    } catch (err: any) {
-      error.value = err.message || '创建文本素材失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '创建文本素材失败'
       throw err
     } finally {
       loading.value = false
@@ -234,8 +234,8 @@ export const useAssetsStore = defineStore('assets', () => {
         assets.value[index] = asset
       }
       return asset
-    } catch (err: any) {
-      error.value = err.message || '更新素材失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '更新素材失败'
       throw err
     } finally {
       loading.value = false
@@ -251,8 +251,8 @@ export const useAssetsStore = defineStore('assets', () => {
       assets.value = assets.value.filter(a => a.id !== id)
       selectedAssetIds.value.delete(id)
       selectedAssetIds.value = new Set(selectedAssetIds.value)
-    } catch (err: any) {
-      error.value = err.message || '删除素材失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '删除素材失败'
       throw err
     } finally {
       loading.value = false
@@ -280,8 +280,8 @@ export const useAssetsStore = defineStore('assets', () => {
       })
 
       clearSelection()
-    } catch (err: any) {
-      error.value = err.message || '移动素材失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '移动素材失败'
       throw err
     } finally {
       loading.value = false
@@ -297,8 +297,8 @@ export const useAssetsStore = defineStore('assets', () => {
       const folder = await foldersApi.create({ name, userId, parentId })
       folders.value.push(folder)
       return folder
-    } catch (err: any) {
-      error.value = err.message || '创建文件夹失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '创建文件夹失败'
       throw err
     } finally {
       loading.value = false
@@ -316,8 +316,8 @@ export const useAssetsStore = defineStore('assets', () => {
         folders.value[index] = folder
       }
       return folder
-    } catch (err: any) {
-      error.value = err.message || '更新文件夹失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '更新文件夹失败'
       throw err
     } finally {
       loading.value = false
@@ -338,8 +338,8 @@ export const useAssetsStore = defineStore('assets', () => {
       if (currentFolderId.value === id) {
         setCurrentFolder(null)
       }
-    } catch (err: any) {
-      error.value = err.message || '删除文件夹失败'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : '删除文件夹失败'
       throw err
     } finally {
       loading.value = false

@@ -8,14 +8,11 @@ import type { ToastType } from '@/shared/components/NToast.vue'
 /**
  * 显示全局通知（可在任何地方调用）
  */
-export function showNotification(
-  type: ToastType,
-  message: string,
-  title?: string
-): void {
+export function showNotification(type: ToastType, message: string, title?: string): void {
   const toasts = getToasts()
 
-  if (toasts.value.length < 10) { // 限制最多10个通知
+  if (toasts.value.length < 10) {
+    // 限制最多10个通知
     const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
     toasts.value.push({
       id,

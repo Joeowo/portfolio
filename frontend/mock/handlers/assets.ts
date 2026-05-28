@@ -35,7 +35,7 @@ export const assetsHandlers = [
   http.post('/api/assets/folders', async ({ request }) => {
     await delay(200)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const { name, userId, parentId } = body
 
     const newFolder = {
@@ -65,7 +65,7 @@ export const assetsHandlers = [
       return HttpResponse.json({ code: 404, msg: '文件夹不存在', data: null }, { status: 404 })
     }
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
     folders[index] = { ...folders[index], ...updates }
 
     return HttpResponse.json({
@@ -149,7 +149,7 @@ export const assetsHandlers = [
   http.post('/api/assets/text', async ({ request }) => {
     await delay(300)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const { content, name, folderId, userId } = body
 
     const newAsset = {
@@ -243,7 +243,7 @@ export const assetsHandlers = [
       return HttpResponse.json({ code: 404, msg: '素材不存在', data: null }, { status: 404 })
     }
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
     assets[index] = { ...assets[index], ...updates, updatedAt: new Date().toISOString() }
 
     return HttpResponse.json({

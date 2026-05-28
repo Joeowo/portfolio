@@ -97,8 +97,8 @@ export const usePagesStore = defineStore('pages', () => {
       const newPage = await generatePageApi(data)
       pages.value.unshift(newPage)
       return newPage
-    } catch (err: any) {
-      error.value = err.message || 'Failed to generate page'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Failed to generate page'
       throw err
     } finally {
       loading.value = false
@@ -118,8 +118,8 @@ export const usePagesStore = defineStore('pages', () => {
       }
 
       return updated
-    } catch (err: any) {
-      error.value = err.message || 'Failed to update page'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Failed to update page'
       throw err
     } finally {
       loading.value = false
@@ -139,8 +139,8 @@ export const usePagesStore = defineStore('pages', () => {
       }
 
       return updated
-    } catch (err: any) {
-      error.value = err.message || 'Failed to update status'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Failed to update status'
       throw err
     } finally {
       loading.value = false
@@ -160,8 +160,8 @@ export const usePagesStore = defineStore('pages', () => {
       }
 
       return updated
-    } catch (err: any) {
-      error.value = err.message || 'Failed to regenerate page'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Failed to regenerate page'
       throw err
     } finally {
       loading.value = false
@@ -175,8 +175,8 @@ export const usePagesStore = defineStore('pages', () => {
     try {
       await deletePageApi(id)
       pages.value = pages.value.filter(p => p.id !== id)
-    } catch (err: any) {
-      error.value = err.message || 'Failed to delete page'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Failed to delete page'
       throw err
     } finally {
       loading.value = false

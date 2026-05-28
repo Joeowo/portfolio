@@ -241,7 +241,7 @@ export const useAdminStore = defineStore('admin', () => {
       await updateUserRoleApi(id, role)
       const user = users.value.find(u => u.id === id)
       if (user) {
-        user.role = role as any
+        user.role = role as 'USER' | 'ADMIN' | 'SUPER_ADMIN'
       }
     } catch (error) {
       console.error('Failed to update user role:', error)
@@ -309,10 +309,7 @@ export const useAdminStore = defineStore('admin', () => {
 
   // Init
   const init = async () => {
-    await Promise.all([
-      fetchStats(),
-      fetchActivities()
-    ])
+    await Promise.all([fetchStats(), fetchActivities()])
   }
 
   return {

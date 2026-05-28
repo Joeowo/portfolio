@@ -105,13 +105,13 @@ const handlePreview = (template: TemplateManageItem) => {
           :class="{ 'filter-btn--active': filterStatus === status }"
           @click="filterStatus = status as 0 | 1 | 'all'"
         >
-          {{ status === 'all' ? '全部' : (status === 1 ? '启用中' : '已禁用') }}
+          {{ status === 'all' ? '全部' : status === 1 ? '启用中' : '已禁用' }}
         </button>
       </div>
     </div>
 
     <div v-if="loading" class="loading-state">
-      <div class="skeleton-row" v-for="i in 5" :key="i">
+      <div v-for="i in 5" :key="i" class="skeleton-row">
         <div class="skeleton-cell skeleton-cell--id"></div>
         <div class="skeleton-cell skeleton-cell--name"></div>
         <div class="skeleton-cell skeleton-cell--category"></div>
@@ -167,8 +167,12 @@ const handlePreview = (template: TemplateManageItem) => {
             <td class="td td--actions">
               <div class="action-buttons">
                 <button class="btn-action" @click="handleEdit(template)">编辑</button>
-                <button class="btn-action btn-action--preview" @click="handlePreview(template)">预览</button>
-                <button class="btn-action btn-action--danger" @click="handleDelete(template.id)">删除</button>
+                <button class="btn-action btn-action--preview" @click="handlePreview(template)">
+                  预览
+                </button>
+                <button class="btn-action btn-action--danger" @click="handleDelete(template.id)">
+                  删除
+                </button>
               </div>
             </td>
           </tr>
@@ -177,7 +181,9 @@ const handlePreview = (template: TemplateManageItem) => {
     </div>
 
     <div v-if="!loading && filteredTemplates.length > 0" class="table-footer">
-      <span class="footer-text">显示 1-{{ filteredTemplates.length }} / 共 {{ filteredTemplates.length }} 条</span>
+      <span class="footer-text"
+        >显示 1-{{ filteredTemplates.length }} / 共 {{ filteredTemplates.length }} 条</span
+      >
     </div>
   </div>
 </template>
@@ -531,7 +537,12 @@ const handlePreview = (template: TemplateManageItem) => {
 
 .skeleton-cell {
   height: 20px;
-  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: var(--radius-xs);

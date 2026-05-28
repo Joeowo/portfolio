@@ -38,7 +38,7 @@ let resolveConfirm: ((value: boolean) => void) | null = null
 
 export function useDialog(): UseDialogReturn {
   const confirm = (options: DialogOptions = {}): Promise<boolean> => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       // Update state
       dialogState.type = options.type || 'info'
       dialogState.title = options.title || '确认操作'
@@ -56,7 +56,7 @@ export function useDialog(): UseDialogReturn {
   }
 
   const alert = (message: string, title?: string): Promise<void> => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       dialogState.type = 'info'
       dialogState.title = title || '提示'
       dialogState.message = message

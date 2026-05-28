@@ -12,7 +12,13 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info'
-export type ToastPosition = 'top-right' | 'top-center' | 'top-left' | 'bottom-right' | 'bottom-center' | 'bottom-left'
+export type ToastPosition =
+  | 'top-right'
+  | 'top-center'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-center'
+  | 'bottom-left'
 
 export interface ToastProps {
   id: string
@@ -101,12 +107,7 @@ function resume() {
 
 <template>
   <Transition :name="isVisible ? 'toast-enter' : 'toast-leave'">
-    <div
-      v-if="isVisible"
-      :class="['toast', typeClass]"
-      @mouseenter="pause"
-      @mouseleave="resume"
-    >
+    <div v-if="isVisible" :class="['toast', typeClass]" @mouseenter="pause" @mouseleave="resume">
       <!-- Status indicator - thin line -->
       <div class="toast__status" :style="{ background: colorVar }" />
 
@@ -130,12 +131,7 @@ function resume() {
       />
 
       <!-- Close -->
-      <button
-        v-if="closable"
-        class="toast__close"
-        type="button"
-        @click="close"
-      >
+      <button v-if="closable" class="toast__close" type="button" @click="close">
         <span class="toast__close-icon">✕</span>
       </button>
     </div>

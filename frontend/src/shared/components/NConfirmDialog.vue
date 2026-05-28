@@ -46,13 +46,16 @@ const emit = defineEmits<{
 const isVisible = ref(false)
 
 // Sync with isOpen prop
-watch(() => props.isOpen, (newValue) => {
-  if (newValue) {
-    open()
-  } else {
-    close()
+watch(
+  () => props.isOpen,
+  newValue => {
+    if (newValue) {
+      open()
+    } else {
+      close()
+    }
   }
-})
+)
 
 // Handle escape key
 function handleEscapeKey(e: KeyboardEvent) {
@@ -120,17 +123,9 @@ const colorVar = computed(() => {
 <template>
   <Teleport to="body">
     <Transition name="dialog-overlay">
-      <div
-        v-if="isVisible"
-        class="dialog-overlay"
-        @click="handleOverlayClick"
-      >
+      <div v-if="isVisible" class="dialog-overlay" @click="handleOverlayClick">
         <Transition name="dialog-content">
-          <div
-            v-if="isVisible"
-            :class="['dialog', typeClass]"
-            @click="handleContentClick"
-          >
+          <div v-if="isVisible" :class="['dialog', typeClass]" @click="handleContentClick">
             <!-- Icon - Pure Doto Display, no background -->
             <div class="dialog__icon" :style="{ color: colorVar }">
               <span class="dialog__icon-text">{{ iconMap[type] }}</span>
@@ -263,7 +258,9 @@ const colorVar = computed(() => {
   border: 1px solid var(--color-border-default);
   background: var(--color-bg-secondary);
   cursor: pointer;
-  transition: background-color 0.15s ease-out, border-color 0.15s ease-out;
+  transition:
+    background-color 0.15s ease-out,
+    border-color 0.15s ease-out;
 }
 
 .dialog__button:hover {
@@ -366,11 +363,15 @@ const colorVar = computed(() => {
 
 /* Content fade + slide */
 .dialog-content-enter-active {
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  transition:
+    opacity 0.25s ease-out,
+    transform 0.25s ease-out;
 }
 
 .dialog-content-leave-active {
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
 .dialog-content-enter-from {

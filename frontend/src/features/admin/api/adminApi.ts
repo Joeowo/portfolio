@@ -22,7 +22,10 @@ export const getPagesReviewApi = (): Promise<{ list: PageReviewItem[]; total: nu
 }
 
 // 审核网页
-export const reviewPageApi = (id: number, approve: boolean): Promise<{ id: number; approved: boolean }> => {
+export const reviewPageApi = (
+  id: number,
+  approve: boolean
+): Promise<{ id: number; approved: boolean }> => {
   return request.put(`/admin/pages/${id}/review`, { approve })
 }
 
@@ -37,12 +40,17 @@ export const getTemplatesManageApi = (): Promise<{ list: TemplateManageItem[]; t
 }
 
 // 创建模版
-export const createTemplateApi = (data: Partial<TemplateManageItem>): Promise<TemplateManageItem> => {
+export const createTemplateApi = (
+  data: Partial<TemplateManageItem>
+): Promise<TemplateManageItem> => {
   return request.post('/admin/templates', data)
 }
 
 // 更新模版
-export const updateTemplateApi = (id: number, data: Partial<TemplateManageItem>): Promise<TemplateManageItem> => {
+export const updateTemplateApi = (
+  id: number,
+  data: Partial<TemplateManageItem>
+): Promise<TemplateManageItem> => {
   return request.put(`/admin/templates/${id}`, data)
 }
 
@@ -52,7 +60,10 @@ export const deleteTemplateApi = (id: number): Promise<void> => {
 }
 
 // 切换模版状态
-export const toggleTemplateStatusApi = (id: number, status: boolean): Promise<{ id: number; status: number }> => {
+export const toggleTemplateStatusApi = (
+  id: number,
+  status: boolean
+): Promise<{ id: number; status: number }> => {
   return request.put(`/admin/templates/${id}/status`, { status })
 }
 
@@ -62,7 +73,10 @@ export const getUsersManageApi = (): Promise<{ list: UserManageItem[]; total: nu
 }
 
 // 更新用户角色
-export const updateUserRoleApi = (id: number, role: string): Promise<{ id: number; role: string }> => {
+export const updateUserRoleApi = (
+  id: number,
+  role: string
+): Promise<{ id: number; role: string }> => {
   return request.put(`/admin/users/${id}/role`, { role })
 }
 

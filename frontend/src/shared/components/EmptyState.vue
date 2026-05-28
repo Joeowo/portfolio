@@ -47,12 +47,7 @@ const hasAction = computed(() => !!props.actionLabel)
     <p v-if="description" class="empty-state__description">{{ description }}</p>
 
     <!-- Action Button -->
-    <button
-      v-if="hasAction"
-      class="empty-state__action"
-      type="button"
-      @click="emit('action')"
-    >
+    <button v-if="hasAction" class="empty-state__action" type="button" @click="emit('action')">
       <span class="empty-state__action-label">{{ actionLabel }}</span>
     </button>
   </div>
@@ -89,11 +84,7 @@ const hasAction = computed(() => !!props.actionLabel)
   content: '';
   position: absolute;
   inset: -50%;
-  background-image: radial-gradient(
-    circle,
-    var(--color-border-subtle) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle, var(--color-border-subtle) 1px, transparent 1px);
   background-size: 8px 8px;
   opacity: 0.3;
   z-index: -1;

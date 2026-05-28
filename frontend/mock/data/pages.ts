@@ -36,7 +36,8 @@ export const mockPages: PublishedPage[] = [
     title: '2024 个人作品集',
     description: '这是我 2024 年的设计作品集，包含了多个 Web 和移动应用项目。',
     seoTitle: 'Jane Designer - 2024 个人作品集 | UI/UX 设计师',
-    seoDescription: '浏览 Jane Designer 在 2024 年完成的 Web 和移动应用设计项目。专注于简洁易用的数字产品设计。',
+    seoDescription:
+      '浏览 Jane Designer 在 2024 年完成的 Web 和移动应用设计项目。专注于简洁易用的数字产品设计。',
     status: 'published' as PageStatus,
     viewCount: 1523,
     previewUrl: getImageUrl('page-preview-1'),

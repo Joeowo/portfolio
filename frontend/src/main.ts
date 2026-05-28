@@ -44,7 +44,7 @@ async function initMSW(): Promise<boolean> {
     console.log('[MSW] ✅ Worker started successfully')
 
     // Wait for Service Worker to be fully activated
-    await new Promise<void>((resolve) => {
+    await new Promise<void>(resolve => {
       if (navigator.serviceWorker.controller) {
         console.log('[MSW] Service Worker controller already active')
         resolve()

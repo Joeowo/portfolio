@@ -9,7 +9,7 @@ import { showNotification } from './notification'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
 
-interface ApiResponse<T = any> {
+interface ApiResponse<T = unknown> {
   code: number
   msg: string
   data: T
@@ -105,23 +105,23 @@ class Request {
     )
   }
 
-  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.get(url, config)
   }
 
-  public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  public post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.post(url, data, config)
   }
 
-  public put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  public put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.put(url, data, config)
   }
 
-  public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  public delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.delete(url, config)
   }
 
-  public patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  public patch<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.patch(url, data, config)
   }
 }

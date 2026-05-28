@@ -12,7 +12,7 @@ export const pagesHandlers = [
   http.post('/api/pages/generate', async ({ request }) => {
     await delay(1000)
 
-    const body = (await request.json()) as any
+    const body = (await request.json()) as Record<string, unknown>
     const { workId, templateId, userId, title, description, seoTitle, seoDescription, customSlug } =
       body
 
@@ -121,7 +121,7 @@ export const pagesHandlers = [
       return HttpResponse.json({ code: 404, msg: '页面不存在', data: null }, { status: 404 })
     }
 
-    const updates = (await request.json()) as any
+    const updates = (await request.json()) as Record<string, unknown>
 
     // If page is published, don't allow some fields to change
     if (pages[index].status === 'published') {
@@ -167,7 +167,7 @@ export const pagesHandlers = [
     if (pages[index].status === 'published') {
       pages[index].status = 'draft'
       pages[index].publishedUrl = undefined
-      ;(pages[index] as any).publishedAt = undefined
+      ;(pages[index] as { publishedAt?: string }).publishedAt = undefined
     }
 
     return HttpResponse.json({
@@ -191,7 +191,7 @@ export const pagesHandlers = [
 
     pages[index] = {
       ...pages[index],
-      status: body.status as any,
+      status: body.status as 'draft' | 'published' | 'offline',
       updatedAt: new Date().toISOString()
     }
 
@@ -199,13 +199,13 @@ export const pagesHandlers = [
     if (body.status === 'published' && !pages[index].publishedUrl) {
       const slug = pages[index].customSlug || `page-${pages[index].id}`
       pages[index].publishedUrl = `https://portfolio.demo/p/${slug}`
-      ;(pages[index] as any).publishedAt = new Date().toISOString()
+      ;(pages[index] as { publishedAt?: string }).publishedAt = new Date().toISOString()
     }
 
     // If unpublishing, clear published data
     if (body.status === 'draft' || body.status === 'offline') {
       pages[index].publishedUrl = undefined
-      ;(pages[index] as any).publishedAt = undefined
+      ;(pages[index] as { publishedAt?: string }).publishedAt = undefined
     }
 
     return HttpResponse.json({

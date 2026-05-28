@@ -49,7 +49,9 @@ const getActivityIcon = (type: ActivityItem['type']) => {
         <div class="activity-icon">{{ getActivityIcon(activity.type) }}</div>
         <div class="activity-info">
           <div class="activity-title">{{ activity.title }}</div>
-          <div v-if="activity.description" class="activity-description">{{ activity.description }}</div>
+          <div v-if="activity.description" class="activity-description">
+            {{ activity.description }}
+          </div>
         </div>
         <div class="activity-time">{{ formatTime(activity.createdAt) }}</div>
       </div>

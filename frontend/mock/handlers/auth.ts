@@ -26,7 +26,8 @@ interface AuthResponse {
 
 // Helper to convert User to response format
 function userToResponse(user: User): Omit<User, 'password'> {
-  const { password: _, ...userWithoutPassword } = user as any
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password: _, ...userWithoutPassword } = user as User & { password: string }
   return userWithoutPassword
 }
 
