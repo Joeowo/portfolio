@@ -210,6 +210,57 @@ export const mockPages: PublishedPage[] = [
     createdAt: '2024-05-05T15:00:00Z',
     updatedAt: '2024-05-18T10:00:00Z',
     publishedAt: '2024-05-05T15:30:00Z'
+  },
+  // 待审核页面 1
+  {
+    id: 11,
+    userId: 1,
+    workId: 11,
+    templateId: 1,
+    customSlug: 'mountain-photography',
+    title: '山川摄影',
+    description: '记录山脉的壮美与神秘，捕捉自然风光的精髓。',
+    seoTitle: '山川摄影 - 自然风光作品展示',
+    seoDescription: '精选山川风光摄影作品，展现大自然的壮美景色。',
+    status: 'pending' as PageStatus,
+    viewCount: 0,
+    previewUrl: getImageUrl('page-preview-11'),
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+  },
+  // 待审核页面 2
+  {
+    id: 12,
+    userId: 2,
+    workId: 12,
+    templateId: 2,
+    customSlug: 'urban-sketches',
+    title: '城市速写',
+    description: '用画笔记录城市生活的点滴，捕捉都市的独特魅力。',
+    seoTitle: '城市速写 - 都市生活艺术记录',
+    seoDescription: '城市速写作品集，记录都市生活的独特魅力。',
+    status: 'pending' as PageStatus,
+    viewCount: 0,
+    previewUrl: getImageUrl('page-preview-12'),
+    createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
+  },
+  // 待审核页面 3
+  {
+    id: 13,
+    userId: 3,
+    workId: 13,
+    templateId: 3,
+    customSlug: 'portrait-works',
+    title: '人像作品',
+    description: '专注人像摄影，记录人物的情感与故事。',
+    seoTitle: '人像作品 - 情感与故事的表达',
+    seoDescription: '精选人像摄影作品，用镜头讲述人物的故事。',
+    status: 'pending' as PageStatus,
+    viewCount: 0,
+    previewUrl: getImageUrl('page-preview-13'),
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
   }
 ]
 

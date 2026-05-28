@@ -223,5 +223,62 @@ export const adminHandlers = [
       msg: 'success',
       data: stats
     })
+  }),
+
+  // GET /api/admin/activities
+  http.get('/api/admin/activities', async () => {
+    await delay(100)
+
+    const activities = [
+      {
+        id: '1',
+        type: 'work_created',
+        title: '用户@alice 创建了新作品',
+        description: '「我的摄影集」',
+        actor: 'alice',
+        targetId: 1,
+        createdAt: new Date(Date.now() - 2 * 60 * 1000).toISOString()
+      },
+      {
+        id: '2',
+        type: 'page_pending',
+        title: '网页进入审核队列',
+        description: '网页#127',
+        targetId: 127,
+        createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString()
+      },
+      {
+        id: '3',
+        type: 'page_approved',
+        title: '管理员审核通过了网页',
+        description: '网页#126',
+        actor: 'bob',
+        targetId: 126,
+        createdAt: new Date(Date.now() - 12 * 60 * 1000).toISOString()
+      },
+      {
+        id: '4',
+        type: 'user_created',
+        title: '新用户注册',
+        description: '用户@carol 加入了平台',
+        actor: 'carol',
+        targetId: 3,
+        createdAt: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+      },
+      {
+        id: '5',
+        type: 'page_offline',
+        title: '网页已下架',
+        description: '网页#10 被管理员下架',
+        targetId: 10,
+        createdAt: new Date(Date.now() - 60 * 60 * 1000).toISOString()
+      }
+    ]
+
+    return HttpResponse.json({
+      code: 200,
+      msg: 'success',
+      data: activities
+    })
   })
 ]
