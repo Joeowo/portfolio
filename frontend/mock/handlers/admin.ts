@@ -61,7 +61,7 @@ export const adminHandlers = [
   }),
 
   // PUT /api/admin/pages/:id/review
-  http.put('/api/admin/pages/:id/review', async ({ request }) => {
+  http.put('/api/admin/pages/:id/review', async ({ request, params }) => {
     await delay(300)
 
     const body = (await request.json()) as { approve: boolean }
@@ -70,7 +70,7 @@ export const adminHandlers = [
     return HttpResponse.json({
       code: 200,
       msg: approve ? '审核通过' : '审核拒绝',
-      data: { id: 0, approved: approve }
+      data: { id: Number(params.id), approved: approve }
     })
   }),
 
