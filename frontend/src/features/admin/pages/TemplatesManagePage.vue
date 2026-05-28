@@ -1,35 +1,42 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { ElMessageBox, ElMessage } from 'element-plus'
 import { useAdminStore } from '../stores/adminStore'
-import { useToast } from '@/shared/composables/useToast'
+import { useNotification } from '@/shared/composables/useNotification'
+import { useDialog } from '@/shared/composables/useDialog'
 import TemplatesManageTable from '../components/TemplatesManageTable.vue'
 import type { TemplateManageItem } from '../types'
 
 const adminStore = useAdminStore()
-const { success, error: errorToast } = useToast()
+const { success, error, info } = useNotification()
+const dialog = useDialog()
 
 onMounted(async () => {
   await adminStore.fetchTemplates()
 })
 
-const handleEdit = (_template: TemplateManageItem) => {
-  ElMessage.info('编辑功能待实现')
+const handleEdit = (template: TemplateManageItem) => {
+  info('编辑功能待实现', {
+    title: `编辑模版: ${template.name}`
+  })
 }
 
 const handleDelete = async (id: number) => {
-  try {
-    await ElMessageBox.confirm('确认删除该模版？此操作不可撤销。', '删除确认', {
-      confirmButtonText: '删除',
-      cancelButtonText: '取消',
-      type: 'warning'
-    })
+  const confirmed = await dialog.confirm({
+    type: 'danger',
+    title: '删除确认',
+    message: '确认删除该模版？此操作不可撤销，删除后无法恢复。',
+    confirmLabel: '删除',
+    cancelLabel: '取消'
+  })
 
-    await adminStore.deleteTemplate(id)
-    success('模版已删除')
-  } catch (err) {
-    if (err !== 'cancel') {
-      errorToast('删除失败')
+  if (confirmed) {
+    try {
+      await adminStore.deleteTemplate(id)
+      success('模版已删除', {
+        title: '删除成功'
+      })
+    } catch {
+      error('删除失败，请稍后重试')
     }
   }
 }
@@ -37,9 +44,11 @@ const handleDelete = async (id: number) => {
 const handleToggleStatus = async (id: number, status: boolean) => {
   try {
     await adminStore.toggleTemplateStatus(id, status)
-    success(status ? '模版已启用' : '模版已禁用')
-  } catch (err) {
-    errorToast('操作失败')
+    success(status ? '模版已启用' : '模版已禁用', {
+      title: status ? '启用成功' : '禁用成功'
+    })
+  } catch {
+    error('操作失败，请稍后重试')
   }
 }
 

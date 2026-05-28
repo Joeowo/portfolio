@@ -6,9 +6,15 @@
   box-sizing: border-box;
 }
 
+/* Focus visible - 机械感边框，使用中性色 */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-red);
+  outline: 2px solid var(--color-border-strong);
   outline-offset: 2px;
+}
+
+/* 移除默认的 outline，使用 focus-visible 替代 */
+*:focus {
+  outline: none;
 }
 
 html {

@@ -97,6 +97,16 @@ const handleClick = (e: MouseEvent) => {
   background-color: var(--color-text-primary);
 }
 
+/* Focus styles */
+.n-button:focus {
+  outline: none;
+}
+
+.n-button:focus-visible {
+  outline: 2px solid var(--color-border-strong);
+  outline-offset: 2px;
+}
+
 /* Secondary - Technical style */
 .n-button--secondary {
   background-color: transparent;

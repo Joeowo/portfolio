@@ -1,68 +1,78 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { ElMessageBox } from 'element-plus'
 import { useAdminStore } from '../stores/adminStore'
-import { useToast } from '@/shared/composables/useToast'
+import { useNotification } from '@/shared/composables/useNotification'
+import { useDialog } from '@/shared/composables/useDialog'
 import PagesReviewList from '../components/PagesReviewList.vue'
 import type { PageReviewItem } from '../types'
 
 const adminStore = useAdminStore()
-const { success, error: errorToast } = useToast()
+const { success, error, warning } = useNotification()
+const dialog = useDialog()
 
 onMounted(async () => {
   await adminStore.fetchPagesReview()
 })
 
 const handleApprove = async (id: number) => {
-  try {
-    await ElMessageBox.confirm('确认通过该网页的审核？', '审核确认', {
-      confirmButtonText: '通过',
-      cancelButtonText: '取消',
-      type: 'success'
-    })
+  const confirmed = await dialog.confirm({
+    type: 'success',
+    title: '审核确认',
+    message: '确认通过该网页的审核？通过后网页将正式上线。',
+    confirmLabel: '通过',
+    cancelLabel: '取消'
+  })
 
-    await adminStore.approvePage(id)
-    success('网页已通过审核')
-  } catch (err) {
-    // 用户取消
-    if (err !== 'cancel') {
-      errorToast('审核失败')
+  if (confirmed) {
+    try {
+      await adminStore.approvePage(id)
+      success('网页已通过审核', {
+        title: '审核成功'
+      })
+    } catch {
+      error('审核失败，请稍后重试')
     }
   }
 }
 
 const handleReject = async (id: number) => {
-  try {
-    await ElMessageBox.confirm('确认拒绝该网页？', '拒绝确认', {
-      confirmButtonText: '拒绝',
-      cancelButtonText: '取消',
-      type: 'warning'
-    })
+  const confirmed = await dialog.confirm({
+    type: 'warning',
+    title: '拒绝确认',
+    message: '确认拒绝该网页？拒绝后用户需要修改后重新提交审核。',
+    confirmLabel: '拒绝',
+    cancelLabel: '取消'
+  })
 
-    await adminStore.rejectPage(id)
-    success('网页已被拒绝')
-  } catch (err) {
-    // 用户取消
-    if (err !== 'cancel') {
-      errorToast('操作失败')
+  if (confirmed) {
+    try {
+      await adminStore.rejectPage(id)
+      warning('网页已被拒绝', {
+        title: '已拒绝'
+      })
+    } catch {
+      error('操作失败，请稍后重试')
     }
   }
 }
 
 const handleOffline = async (id: number) => {
-  try {
-    await ElMessageBox.confirm('确认下架该网页？', '下架确认', {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      type: 'warning'
-    })
+  const confirmed = await dialog.confirm({
+    type: 'warning',
+    title: '下架确认',
+    message: '确认下架该网页？下架后网页将无法被访问。',
+    confirmLabel: '确认下架',
+    cancelLabel: '取消'
+  })
 
-    await adminStore.setPageOffline(id)
-    success('网页已下架')
-  } catch (err) {
-    // 用户取消
-    if (err !== 'cancel') {
-      errorToast('操作失败')
+  if (confirmed) {
+    try {
+      await adminStore.setPageOffline(id)
+      warning('网页已下架', {
+        title: '下架成功'
+      })
+    } catch {
+      error('操作失败，请稍后重试')
     }
   }
 }

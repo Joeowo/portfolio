@@ -358,6 +358,15 @@ const filterOptions: Array<{ value: PageStatus | 'all'; label: string }> = [
   border-color: var(--color-border-strong);
 }
 
+.btn-action:focus-visible {
+  outline: 2px solid var(--color-border-strong);
+  outline-offset: 2px;
+}
+
+.btn-action:focus {
+  outline: none;
+}
+
 .btn-action--primary {
   color: var(--color-success);
   border-color: var(--color-success);

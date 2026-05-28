@@ -5,7 +5,7 @@ import type {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios'
-import { ElMessage } from 'element-plus'
+import { showNotification } from './notification'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
 
@@ -55,7 +55,7 @@ class Request {
         // Check if response.data exists
         if (!response.data || typeof response.data !== 'object') {
           console.error('[Request] Invalid response:', response)
-          ElMessage.error('服务器响应格式错误')
+          showNotification('error', '服务器响应格式错误')
           return Promise.reject(new Error('Invalid response'))
         }
 
@@ -68,7 +68,7 @@ class Request {
 
         // Handle business errors
         console.error('[Request] Business error:', { code, msg, data, url: response.config?.url })
-        ElMessage.warning(msg || '请求失败')
+        showNotification('warning', msg || '请求失败')
         return Promise.reject(new Error(msg || '请求失败'))
       },
       error => {
@@ -78,26 +78,26 @@ class Request {
 
           switch (status) {
             case 401:
-              ElMessage.error('未授权，请重新登录')
+              showNotification('error', '未授权，请重新登录')
               localStorage.removeItem('token')
               window.location.href = '/login'
               break
             case 403:
-              ElMessage.error('无权限访问')
+              showNotification('error', '无权限访问')
               break
             case 404:
-              ElMessage.error('请求的资源不存在')
+              showNotification('error', '请求的资源不存在')
               break
             case 500:
-              ElMessage.error('服务器错误')
+              showNotification('error', '服务器错误')
               break
             default:
-              ElMessage.error(data?.msg || '请求失败')
+              showNotification('error', data?.msg || '请求失败')
           }
         } else if (error.request) {
-          ElMessage.error('网络错误，请检查网络连接')
+          showNotification('error', '网络错误，请检查网络连接')
         } else {
-          ElMessage.error('请求配置错误')
+          showNotification('error', '请求配置错误')
         }
 
         return Promise.reject(error)
