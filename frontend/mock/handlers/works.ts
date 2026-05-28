@@ -73,9 +73,9 @@ export const worksHandlers = [
 
     const newWork: Work = {
       id: nextWorkId++,
-      userId,
-      title,
-      description,
+      userId: userId as number,
+      title: title as string,
+      description: description as string | undefined,
       coverUrl: undefined,
       sections: [],
       version: 1,

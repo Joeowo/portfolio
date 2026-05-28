@@ -40,9 +40,9 @@ export const assetsHandlers = [
 
     const newFolder = {
       id: nextFolderId++,
-      userId,
-      name,
-      parentId: parentId || null,
+      userId: userId as number,
+      name: name as string,
+      parentId: (parentId as number | null) || null,
       createdAt: new Date().toISOString()
     }
 
@@ -152,14 +152,15 @@ export const assetsHandlers = [
     const body = (await request.json()) as Record<string, unknown>
     const { content, name, folderId, userId } = body
 
+    const contentStr = String(content || '')
     const newAsset = {
       id: nextAssetId++,
-      userId,
-      folderId: folderId || null,
-      name: name || 'untitled.txt',
+      userId: userId as number,
+      folderId: (folderId as number | null) || null,
+      name: (name as string) || 'untitled.txt',
       assetType: 'text' as const,
-      fileUrl: `data:text/plain;base64,${btoa(content)}`,
-      fileSize: content.length,
+      fileUrl: `data:text/plain;base64,${btoa(contentStr)}`,
+      fileSize: contentStr.length,
       tags: '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()

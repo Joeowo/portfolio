@@ -65,12 +65,12 @@ export const templatesHandlers = [
 
     const newTemplate = {
       id: nextTemplateId++,
-      name,
-      category,
+      name: name as string,
+      category: category as string,
       type: 'custom' as const,
-      previewUrl,
+      previewUrl: previewUrl as string,
       layoutType: layoutType as 'single' | 'grid' | 'two_column',
-      description,
+      description: description as string,
       status: 1 as 0 | 1,
       createdAt: new Date().toISOString()
     }

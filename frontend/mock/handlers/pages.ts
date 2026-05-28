@@ -17,8 +17,8 @@ export const pagesHandlers = [
       body
 
     // Get work and template
-    const work = getWorkById(workId)
-    const template = getTemplateById(templateId)
+    const work = getWorkById(workId as number)
+    const template = getTemplateById(templateId as number)
 
     if (!work) {
       return HttpResponse.json({ code: 404, msg: '作品不存在', data: null }, { status: 404 })
@@ -31,14 +31,14 @@ export const pagesHandlers = [
     // Create new page
     const newPage = {
       id: nextPageId++,
-      userId,
-      workId,
-      templateId,
-      customSlug,
-      title: title || work.title,
-      description: description || work.description,
-      seoTitle,
-      seoDescription,
+      userId: userId as number,
+      workId: workId as number,
+      templateId: templateId as number,
+      customSlug: customSlug as string | undefined,
+      title: (title as string) || work.title,
+      description: (description as string | undefined) || work.description,
+      seoTitle: seoTitle as string | undefined,
+      seoDescription: seoDescription as string | undefined,
       status: 'draft' as const,
       viewCount: 0,
       previewUrl: template.previewUrl,

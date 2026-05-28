@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useAssetsStore } from '../stores/assetsStore'
+import type { Asset, AssetType } from '../types/Asset'
 import AssetGrid from '../components/AssetGrid.vue'
 import FolderTree from '../components/FolderTree.vue'
 import AssetFilterBar from '../components/AssetFilterBar.vue'
@@ -14,11 +15,11 @@ const assetsStore = useAssetsStore()
 // State
 const isSelectMode = ref(false)
 const isDrawerOpen = ref(false)
-const selectedAsset = ref<{ id: number; name: string; fileUrl: string } | null>(null)
+const selectedAsset = ref<Asset | null>(null)
 const showUploadModal = ref(false)
 
 // Handlers
-const handleGridClick = (asset: { id: number; name: string; fileUrl: string }) => {
+const handleGridClick = (asset: Asset) => {
   if (isSelectMode.value) {
     assetsStore.toggleSelectAsset(asset.id)
   } else {
@@ -52,7 +53,7 @@ const handleKeywordChange = (value: string) => {
   assetsStore.setFilters({ keyword: value })
 }
 
-const handleTypeChange = (value: string) => {
+const handleTypeChange = (value: AssetType | '') => {
   assetsStore.setFilters({ type: value })
 }
 

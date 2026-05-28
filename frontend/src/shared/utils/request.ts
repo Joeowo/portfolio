@@ -44,7 +44,7 @@ class Request {
 
     // Response interceptor
     this.instance.interceptors.response.use(
-      (response: AxiosResponse<ApiResponse>) => {
+      (response: AxiosResponse<ApiResponse>): any => {
         console.log('[Request] Response received:', response.config.url, {
           status: response.status,
           hasData: !!response.data,
