@@ -34,10 +34,11 @@ async function initMSW(): Promise<boolean> {
     console.log('[MSW] Worker instance:', !!worker)
 
     // Start the worker with detailed options
+    // Use relative path to work with both dev and production (with base path)
     await worker.start({
       onUnhandledRequest: 'warn',
       serviceWorker: {
-        url: window.location.origin + '/mockServiceWorker.js'
+        url: import.meta.env.BASE_URL + 'mockServiceWorker.js'
       }
     })
 
