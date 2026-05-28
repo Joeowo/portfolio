@@ -10,13 +10,13 @@ import './styles/reset.css'
 import './styles/main.css'
 import './styles/transitions.css'
 
-// MSW (Mock Service Worker) - only in development
+// MSW (Mock Service Worker) - enabled for demo in production too
 async function initMSW(): Promise<boolean> {
   // Check if we're in development mode
   const isDev = import.meta.env.DEV
   if (!isDev) {
-    console.log('[MSW] Skipping MSW in production')
-    return false
+    console.log('[MSW] Running in production demo mode with MSW')
+    // Don't return - continue to enable MSW for demo
   }
 
   console.log('[MSW] Initializing MSW in development mode...')
